@@ -49,3 +49,21 @@ Route::get('/booking-dokter', function () {
 Route::get('/riwayat', function () {
     return view('riwayat');
 });
+Route::get('/antrian', function () {
+    return view('antrian');
+});
+Route::get('/hasil-cemas', function () {
+    return view('hasil-cemas');
+});
+Route::get('/hasil-stress', function () {
+    return view('hasil-stress');
+});
+Route::get('/hpl', function () {
+    return view('hpl');
+});
+Route::get('/bmi', function () {
+    return view('bmi');
+});
+Route::get('/kalori', function () {
+    return view('kalori');
+});

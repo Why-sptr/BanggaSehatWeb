@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cek Kesehatan</title>
+    <title>Cek Kalori</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/responsivemobile.css') }}">
     <!-- Font -->
@@ -18,7 +18,7 @@
 
 <body>
     <!-- Navbar -->
-    <header class="sticky-header">
+    <header>
         <a href="/homepage" class="logo"><img src="image/logo web.png" alt=""></a>
         <ul class="navbar">
             <li><a href="/homepage">Home</a></li>
@@ -33,37 +33,48 @@
             <div class='bx bx-menu' id="menu-icon"></div>
         </div>
     </header>
-    <section class="cek-kesehatan">
+    <section class="bmi">
         <div class="hero-title">
             <img src="image/beat.png" alt="">
-            <p>Apakah Kamu Bingung Menentukan?</p>
+            <p>Hitung BMI Kamu</p>
         </div>
-        <h1>Hitung Kesehatan Kamu Dengan Kalkulator Kesehatan</h1>
-        <div class="item-cek-kesehatan">
-            <div class="card-cek-kesehatan">
-                <img src="image/bmi.png" alt="">
-                <h1>Kalkulator BMI</h1>
-                <p>Digunakan untuk menentukan kategori berat badan ideal atau tidak</p>
+        <h1 class="bmih1">Hitung Kebutuhan Kalori Kamu Supaya Tercukupi</h1>
+        <div class="cek-bmi">
+            <div class="main-gender-bmi">
+                <h1>Jenis Kelamin</h1>
+                <div class="gender-bmi">
+                    <div class="pria">
+                        <img src="image/pria.png" alt="">
+                        <p>Laki-Laki</p>
+                    </div>
+                    <div class="wanita">
+                        <img src="image/wanita.png" alt="">
+                        <p>Perempuan</p>
+                    </div>
+                </div>
             </div>
-            <div class="card-cek-kesehatan">
-                <img src="image/kalori.png" alt="">
-                <h1>Kalkulator Kalori</h1>
-                <p>Digunakan untuk menghitung kebutuhan kalori harian</p>
+            <div class="usia-bmi">
+                <h1>Usia</h1>
+                <input type="number">
             </div>
-            <div class="card-cek-kesehatan">
-                <img src="image/hpl.png" alt="">
-                <h1>Kalkulator HPL</h1>
-                <p>Digunakan untuk menentukan minggu kelahiran buah hati</p>
+            <div class="tinggi-bmi">
+                <h1>Tinggi</h1>
+                <input type="number">
             </div>
-            <div class="card-cek-kesehatan">
-                <img src="image/stress.png" alt="">
-                <h1>Kalkulator Stress</h1>
-                <p>Digunakan untuk menghitung tingkat stress</p>
+            <div class="berat-badan-bmi">
+                <h1>Berat Badan</h1>
+                <input type="number">
             </div>
-            <div class="card-cek-kesehatan">
-                <img src="image/cemas.png" alt="">
-                <h1>Kalkulator Kecemasan</h1>
-                <p>Digunakan untuk menghitung tingkat kecemasan</p>
+        </div>
+        <button>Cek Hasil</button>
+    </section>
+    <section class="hasil-bmi">
+        <div class="main-hasil-bmi">
+            <h1>Hasil</h1>
+            <div class="content-hasil-bmi">
+                <p>Membutuhkan :</p>
+                <h1>2000 cal</h1>
+                <p>Untuk memenuhi kebutuhuan kalori harian</p>
             </div>
         </div>
     </section>

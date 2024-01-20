@@ -44,7 +44,7 @@
 
 <body>
     <!-- Navbar -->
-    <header>
+    <header class="sticky-header">
         <a href="/homepage" class="logo"><img src="image/logo web.png" alt=""></a>
         <ul class="navbar">
             <li><a href="/homepage">Home</a></li>
@@ -341,5 +341,26 @@
     });
 
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const header = document.querySelector('header');
+        const scrollThreshold = 20; // Adjust this value based on when you want the header to become sticky
 
+        function updateHeaderSticky() {
+            const scrollY = window.scrollY || window.pageYOffset;
+            const isSticky = scrollY > scrollThreshold;
+
+            header.classList.toggle('sticky', isSticky);
+            header.style.position = isSticky ? 'fixed' : 'relative';
+            header.style.background = isSticky ? 'rgba(255, 255, 255, 0.95)' : 'rgba(255, 255, 255, 0.8)';
+            header.style.backdropFilter = isSticky ? 'blur(10px)' : 'none';
+            header.style.backdropFilter = isSticky ? 'blur(10px)' : 'none';
+        }
+
+        window.addEventListener('scroll', updateHeaderSticky);
+
+        // Initial call to set initial state
+        updateHeaderSticky();
+    });
+</script>
 </html>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Profile</title>
+    <title>Hasil Stress</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/responsivemobile.css') }}">
     <!-- Font -->
@@ -18,12 +18,12 @@
 
 <body>
     <!-- Navbar -->
-    <header class="sticky-header">
+    <header>
         <a href="/homepage" class="logo"><img src="image/logo web.png" alt=""></a>
         <ul class="navbar">
             <li><a href="/homepage">Home</a></li>
             <li><a href="/blog">Blog</a></li>
-            <li><a href="/cek-kesehatan">Cek Kesehatan</a></li>
+            <li><a href="/cek-kesehatan" class="active">Cek Kesehatan</a></li>
             <li><a href="/booking-dokter">Booking Dokter</a></li>
             <li><a href="/rs-terdekat">RS Terdekat</a></li>
         </ul>
@@ -33,37 +33,53 @@
             <div class='bx bx-menu' id="menu-icon"></div>
         </div>
     </header>
-    <section class="edit-profile">
-        <div class="profile-picture">
-            <img src="image/user.png" alt="">
-            <a href="#"><i class='bx bx-plus'></i></a>
-        </div>
-        <div class="data-profile">
-            <div class="name">
-                <div class="first-name">
-                    <p>Nama Pertama</p>
-                    <input type="text">
-                </div>
-                <div class="last-name">
-                    <p>Nama Terakhir</p>
-                    <input type="name">
-                </div>
-            </div>
-            <div class="usia">
-                <p>Usia</p>
-                <input type="text">
-            </div>
-            <div class="phone">
-                <p>Nomor</p>
-                <input type="number">
-            </div>
-            <div class="email">
-                <p>Email</p>
-                <input type="text">
-            </div>
-        </div>
-        <a href="#">Simpan Profile</a>
+    <section class="hasil-stress">
+        <img src="image/hasilstress.png" alt="">
+        <h1>STRESS TINGGI</h1>
+        <P>Stres merupakan reaksi alami terhadap tekanan dan tantangan hidup, namun, tingkat stres yang tinggi dapat berdampak negatif pada kesehatan fisik dan mental. Peningkatan tuntutan pekerjaan, kehidupan pribadi yang sibuk, dan kondisi lingkungan tertentu dapat menjadi pemicu stres yang signifikan.</P>
+        <button>Ulangi Tes</button>
     </section>
+    <!-- Footer -->
+    <footer>
+        <div class="logo">
+            <a href="/homepage" class="logo"><img src="image/logo2.png" alt=""></a>
+            <p>Jl. Imam Bonjol No.207, Pendrikan Kidul, Kec. Semarang Tengah, Kota Semarang, Jawa Tengah 50131</p>
+            <div class="sosmed">
+                <i class='bx bxl-twitter'></i>
+                <i class='bx bxl-facebook-circle'></i>
+                <i class='bx bxl-instagram-alt'></i>
+                <i class='bx bxl-whatsapp'></i>
+            </div>
+        </div>
+        <div class="menu">
+            <ul>
+                <li class="title-footer">Menu</li>
+                <li>Home</li>
+                <li>Blog</li>
+                <li>Cek Kesehatan</li>
+                <li>Booking Dokter</li>
+                <li>RS Terdekat</li>
+            </ul>
+        </div>
+        <div class="artikel">
+            <ul>
+                <li class="title-footer">Artikel</li>
+                <li>Kesehatan</li>
+                <li>Obat-Obatan</li>
+                <li>Tips and Tricks</li>
+                <li>Berita</li>
+                <li>Olahraga</li>
+            </ul>
+        </div>
+        <div class="kontak">
+            <ul>
+                <li class="title-footer">Kontak Kami</li>
+                <li>+62 0899 5556 3333</li>
+                <li>banggasehat.gmail.com</li>
+            </ul>
+        </div>
+    </footer>
+
 </body>
 <script>
     let menu = document.querySelector('#menu-icon');
@@ -81,9 +97,10 @@
             navbar.classList.remove('open');
         }
     });
+
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const header = document.querySelector('header');
         const scrollThreshold = 20; // Adjust this value based on when you want the header to become sticky
 
@@ -104,5 +121,4 @@
         updateHeaderSticky();
     });
 </script>
-
 </html>

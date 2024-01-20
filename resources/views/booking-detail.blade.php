@@ -18,7 +18,7 @@
 
 <body>
     <!-- Navbar -->
-    <header>
+    <header class="sticky-header">
         <a href="/homepage" class="logo"><img src="image/logo web.png" alt=""></a>
         <ul class="navbar">
             <li><a href="/homepage">Home</a></li>
@@ -123,7 +123,7 @@
     function changeColor(element) {
         // Hapus kelas "selected" dari semua elemen dengan kelas "select-tanggal"
         var allElements = document.querySelectorAll('.select-tanggal');
-        allElements.forEach(function (el) {
+        allElements.forEach(function(el) {
             el.classList.remove('selected');
         });
 
@@ -146,7 +146,7 @@
             var option = document.createElement("div");
             option.className = "select-tanggal";
             option.innerHTML = "<p>" + hari[dayIndex] + "</p><p>" + (i + 1) + "</p>";
-            option.onclick = function () {
+            option.onclick = function() {
                 changeColor(this);
             };
             tanggalContainer.appendChild(option);
@@ -155,7 +155,10 @@
 
     function getCurrentMonth() {
         var today = new Date();
-        var options = { month: 'long', year: 'numeric' };
+        var options = {
+            month: 'long',
+            year: 'numeric'
+        };
         var bulanSaatIni = today.toLocaleDateString('id-ID', options);
         document.getElementById("currentMonth").textContent = bulanSaatIni;
     }
@@ -163,7 +166,7 @@
 
     function changeColor(element) {
         var allElements = document.querySelectorAll('.select-tanggal');
-        allElements.forEach(function (el) {
+        allElements.forEach(function(el) {
             el.classList.remove('selected');
         });
 
@@ -172,11 +175,49 @@
 
 
 
-    window.onload = function () {
+    window.onload = function() {
         getCurrentMonth();
         updateTanggal();
     };
+</script>
+<script>
+    let menu = document.querySelector('#menu-icon');
+    let navbar = document.querySelector('.navbar');
 
+    menu.onclick = () => {
+        menu.classList.toggle('bx-x');
+        navbar.classList.toggle('open');
+    }
+
+    // Close the menu when a link is clicked
+    document.querySelectorAll('.navbar a').forEach(link => {
+        link.onclick = () => {
+            menu.classList.remove('bx-x');
+            navbar.classList.remove('open');
+        }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const header = document.querySelector('header');
+        const scrollThreshold = 20; // Adjust this value based on when you want the header to become sticky
+
+        function updateHeaderSticky() {
+            const scrollY = window.scrollY || window.pageYOffset;
+            const isSticky = scrollY > scrollThreshold;
+
+            header.classList.toggle('sticky', isSticky);
+            header.style.position = isSticky ? 'fixed' : 'relative';
+            header.style.background = isSticky ? 'rgba(255, 255, 255, 0.95)' : 'rgba(255, 255, 255, 0.8)';
+            header.style.backdropFilter = isSticky ? 'blur(10px)' : 'none';
+            header.style.backdropFilter = isSticky ? 'blur(10px)' : 'none';
+        }
+
+        window.addEventListener('scroll', updateHeaderSticky);
+
+        // Initial call to set initial state
+        updateHeaderSticky();
+    });
 </script>
 
 </html>
