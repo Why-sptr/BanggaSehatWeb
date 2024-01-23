@@ -59,122 +59,55 @@
             <div class='bx bx-menu' id="menu-icon"></div>
         </div>
     </header>
-    <div class="search-blog">
-        <input type="text" placeholder="Ketuk disini untuk mencari">
-        <button>Cari</button>
+    <div class="search">
+        <form action="{{ route('blog.search') }}" method="GET">
+            <input type="text" name="search" placeholder="Ketuk disini untuk mencari">
+            <button type="submit">Cari</button>
+        </form>
     </div>
     <section class="blog">
         <div class="main-blog">
-            <a href="/detail-blog">
-                <div class="top-blog">
-                    <img src="image/brokoli.png" alt="">
-                    <span>Kesehatan</span>
-                    <h1>Kesehatan Jantung dan Diet: Hubungan Antar Kolesterol, Gula Darah, dan Pilihan Makanan.</h1>
-                </div>
-            </a>
-            <h2>Harus Dilihat</h2>
-            <a href="/detail-blog">
-                <div class="item-blog">
-                    <div class="card-item-blog">
-                        <img src="image/surat.png" alt="">
-                        <span>Kesehatan</span>
-                        <h1>Menjelajahi Kesehatan Holistik: </h1>
-                        <p>Menggabungkan Obat-Obatan Konvensional dan Pendekatan Alternatif.
-                        </p>
+            @foreach ($TopArtikels as $topartikel1)
+                <a href="{{ route('artikel.detail', ['id' => $topartikel1->id]) }}">
+                    <div class="top-blog">
+                        <img src="{{ asset('artikel/' . $topartikel1->gambar) }}" alt="Gambar Artikel">
+                        <span>{{ $topartikel1->kategori }}</span>
+                        <h1>{{ $topartikel1->judul }}</h1>
                     </div>
-            </a>
-            <a href="/detail-blog">
-                <div class="card-item-blog">
-                    <img src="image/obatartikel.png" alt="">
-                    <span>Kesehatan</span>
-                    <h1>Menjelajahi Kesehatan Holistik: </h1>
-                    <p>Menggabungkan Obat-Obatan Konvensional dan Pendekatan Alternatif.
-                    </p>
-                </div>
-            </a>
-            <a href="/detail-blog">
-                <div class="card-item-blog">
-                    <img src="image/timbangan.png" alt="">
-                    <span>Kesehatan</span>
-                    <h1>Menjelajahi Kesehatan Holistik: </h1>
-                    <p>Menggabungkan Obat-Obatan Konvensional dan Pendekatan Alternatif.
-                    </p>
-                </div>
-            </a>
-            <a href="/detail-blog">
-                <div class="card-item-blog">
-                    <img src="image/brokoli2.png" alt="">
-                    <span>Kesehatan</span>
-                    <h1>Menjelajahi Kesehatan Holistik: </h1>
-                    <p>Menggabungkan Obat-Obatan Konvensional dan Pendekatan Alternatif.
-                    </p>
-                </div>
-            </a>
-            <a href="/detail-blog">
-                <div class="card-item-blog">
-                    <img src="image/surat.png" alt="">
-                    <span>Kesehatan</span>
-                    <h1>Menjelajahi Kesehatan Holistik: </h1>
-                    <p>Menggabungkan Obat-Obatan Konvensional dan Pendekatan Alternatif.
-                    </p>
-                </div>
-            </a>
-            <a href="/detail-blog">
-                <div class="card-item-blog">
-                    <img src="image/obatartikel.png" alt="">
-                    <span>Kesehatan</span>
-                    <h1>Menjelajahi Kesehatan Holistik: </h1>
-                    <p>Menggabungkan Obat-Obatan Konvensional dan Pendekatan Alternatif.
-                    </p>
-                </div>
-            </a>
-            <a href="/detail-blog">
-                <div class="card-item-blog">
-                    <img src="image/brokoli2.png" alt="">
-                    <span>Kesehatan</span>
-                    <h1>Menjelajahi Kesehatan Holistik: </h1>
-                    <p>Menggabungkan Obat-Obatan Konvensional dan Pendekatan Alternatif.
-                    </p>
-                </div>
-            </a>
-            <a href="/detail-blog">
-                <div class="card-item-blog">
-                    <img src="image/timbangan.png" alt="">
-                    <span>Kesehatan</span>
-                    <h1>Menjelajahi Kesehatan Holistik: </h1>
-                    <p>Menggabungkan Obat-Obatan Konvensional dan Pendekatan Alternatif.
-                    </p>
-                </div>
-            </a>
-        </div>
+                </a>
+            @endforeach
+            <h2>Harus Dilihat</h2>
+            <div class="item-blog">
+                @foreach ($artikels as $artikel)
+                    <a href="{{ route('artikel.detail', ['id' => $artikel->id]) }}">
+                        <div class="card-item-blog">
+                            <img src="{{ asset('artikel/' . $artikel->gambar) }}" alt="Gambar Artikel" width="200">
+                            {{-- Menambahkan kondisi di dalam tag span --}}
+                            <span
+                                style="background-color: 
+                            @if ($artikel->kategori == 'kesehatan') default
+                            @elseif($artikel->kategori == 'obat-obatan') #FFB45C
+                            @elseif($artikel->kategori == 'tips and tricks') #FFA67E @endif;">
+                                {{ $artikel->kategori }}
+                            </span>
+
+                            <h1>{{ $artikel->judul }}</h1>
+                            <p>{{ $artikel->deskripsi }}</p>
+                        </div>
+                    </a>
+                @endforeach
+
+            </div>
         </div>
         <div class="side-blog">
             <div class="categries">
                 <h1>Kategori</h1>
-                <div class="item-categories">
-                    <p>Kesehatan</p>
-                    <span>(10)</span>
-                </div>
-                <div class="item-categories">
-                    <p>Mental</p>
-                    <span>(10)</span>
-                </div>
-                <div class="item-categories">
-                    <p>Obat-Obatan</p>
-                    <span>(10)</span>
-                </div>
-                <div class="item-categories">
-                    <p>Tips and Tricks</p>
-                    <span>(10)</span>
-                </div>
-                <div class="item-categories">
-                    <p>Nutrisi dan Diet</p>
-                    <span>(10)</span>
-                </div>
-                <div class="item-categories">
-                    <p>Kesehatan Reproduksi</p>
-                    <span>(10)</span>
-                </div>
+                @foreach ($categories as $category)
+                    <div class="item-categories">
+                        <p>{{ $category->kategori }}</p>
+                        <span>({{ $category->jumlah_artikel }})</span>
+                    </div>
+                @endforeach
             </div>
             <div class="tab-container">
                 <div class="tab" onclick="openTab('tab1')">Populer</div>
@@ -183,103 +116,75 @@
             </div>
 
             <div id="tab1" class="tab-content active">
-                <a href="/detail-blog">
-                    <div class="main-tab">
-                        <img src="image/kesehatanartikel.png" alt="">
-                        <div class="text-tab">
-                            <h1>Mengatasi Insomnia: Teknik Relaksasi yang Terbukti Ampuh</h1>
-                            <span>Kesehatan</span>
+                @foreach ($populerArtikels as $populer)
+                    <a href="{{ route('artikel.detail', ['id' => $populer->id]) }}">
+                        <div class="main-tab">
+                            <img src="{{ asset('artikel/' . $populer->gambar) }}" alt="Gambar Artikel" width="200">
+                            <div class="text-tab">
+                                <h1>{{ $populer->judul }}</h1>
+                                <span
+                                    style="background-color: 
+                            @if ($populer->kategori == 'kesehatan') default
+                            @elseif($populer->kategori == 'obat-obatan') #FFB45C
+                            @elseif($populer->kategori == 'tips and tricks') #FFA67E @endif;">
+                                    {{ $populer->kategori }}
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                </a>
-                <a href="/detail-blog">
-                    <div class="main-tab">
-                        <img src="image/kesehatanartikel.png" alt="">
-                        <div class="text-tab">
-                            <h1>Mengatasi Insomnia: Teknik Relaksasi yang Terbukti Ampuh</h1>
-                            <span>Kesehatan</span>
-                        </div>
-                    </div>
-                </a>
-                <a href="/detail-blog">
-                    <div class="main-tab">
-                        <img src="image/kesehatanartikel.png" alt="">
-                        <div class="text-tab">
-                            <h1>Mengatasi Insomnia: Teknik Relaksasi yang Terbukti Ampuh</h1>
-                            <span>Kesehatan</span>
-                        </div>
-                    </div>
-                </a>
-                <a href="/detail-blog">
-                    <div class="main-tab">
-                        <img src="image/kesehatanartikel.png" alt="">
-                        <div class="text-tab">
-                            <h1>Mengatasi Insomnia: Teknik Relaksasi yang Terbukti Ampuh</h1>
-                            <span>Kesehatan</span>
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                @endforeach
             </div>
 
             <div id="tab2" class="tab-content">
-                <a href="/detail-blog">
-                    <div class="main-tab">
-                        <img src="image/kesehatanartikel.png" alt="">
-                        <div class="text-tab">
-                            <h1>Mengatasi Insomnia: Teknik Relaksasi yang Terbukti Ampuh</h1>
-                            <span>Kesehatan</span>
+                @foreach ($terbaruArtikels as $terbaru)
+                    <a href="{{ route('artikel.detail', ['id' => $terbaru->id]) }}">
+                        <div class="main-tab">
+                            <img src="{{ asset('artikel/' . $terbaru->gambar) }}" alt="Gambar Artikel" width="200">
+                            <div class="text-tab">
+                                <h1>{{ $terbaru->judul }}</h1>
+                                <span
+                                    style="background-color: 
+                            @if ($terbaru->kategori == 'kesehatan') default
+                            @elseif($terbaru->kategori == 'obat-obatan') #FFB45C
+                            @elseif($terbaru->kategori == 'tips and tricks') #FFA67E @endif;">
+                                    {{ $terbaru->kategori }}
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                </a>
-                <a href="/detail-blog">
-                    <div class="main-tab">
-                        <img src="image/kesehatanartikel.png" alt="">
-                        <div class="text-tab">
-                            <h1>Mengatasi Insomnia: Teknik Relaksasi yang Terbukti Ampuh</h1>
-                            <span>Kesehatan</span>
-                        </div>
-                    </div>
-                </a>
-                <a href="/detail-blog">
-                    <div class="main-tab">
-                        <img src="image/kesehatanartikel.png" alt="">
-                        <div class="text-tab">
-                            <h1>Mengatasi Insomnia: Teknik Relaksasi yang Terbukti Ampuh</h1>
-                            <span>Kesehatan</span>
-                        </div>
-                    </div>
-                </a>
-                <a href="/detail-blog">
-                    <div class="main-tab">
-                        <img src="image/kesehatanartikel.png" alt="">
-                        <div class="text-tab">
-                            <h1>Mengatasi Insomnia: Teknik Relaksasi yang Terbukti Ampuh</h1>
-                            <span>Kesehatan</span>
-                        </div>
-                    </div>
-                </a>
-                <a href="/detail-blog">
-                    <div class="main-tab">
-                        <img src="image/kesehatanartikel.png" alt="">
-                        <div class="text-tab">
-                            <h1>Mengatasi Insomnia: Teknik Relaksasi yang Terbukti Ampuh</h1>
-                            <span>Kesehatan</span>
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                @endforeach
             </div>
 
             <div id="tab3" class="tab-content">
-                <h2>Rekomendasi</h2>
-                <p>Artikel Rekomendasi</p>
+                @foreach ($rekomendasiArtikels as $rekomendasi)
+                    <a href="{{ route('artikel.detail', ['id' => $rekomendasi->id]) }}">
+                        <div class="main-tab">
+                            <img src="{{ asset('artikel/' . $rekomendasi->gambar) }}" alt="Gambar Artikel"
+                                width="200">
+                            <div class="text-tab">
+                                <h1>{{ $rekomendasi->judul }}</h1>
+                                <span
+                                    style="background-color: 
+                            @if ($rekomendasi->kategori == 'kesehatan') default
+                            @elseif($rekomendasi->kategori == 'obat-obatan') #FFB45C
+                            @elseif($rekomendasi->kategori == 'tips and tricks') #FFA67E @endif;">
+                                    {{ $rekomendasi->kategori }}
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                @endforeach
             </div>
-            <a href="/detail-blog">
-            <div class="top-side-blog">
-                <img src="image/buah.png" alt="">
-                <span>Kesehatan</span>
-                <h1>Makanan Super untuk Menyegarkan Otak dan Meningkatkan Konsentrasi</h1>
-            </div>
-            </a>
+            <h1 style="margin-top: 20px">Top</h1>
+            @foreach ($Top2Artikels as $topartikel2)
+                <div class="top-side-blog">
+                    <a href="{{ route('artikel.detail', ['id' => $topartikel2->id]) }}">
+                        <img src="{{ asset('artikel/' . $topartikel2->gambar) }}" alt="Gambar Artikel">
+                        <span>{{ $topartikel2->kategori }}</span>
+                        <h1>{{ $topartikel2->judul }}</h1>
+                    </a>
+                </div>
+            @endforeach
         </div>
     </section>
     <!-- Footer -->
@@ -339,10 +244,9 @@
             navbar.classList.remove('open');
         }
     });
-
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const header = document.querySelector('header');
         const scrollThreshold = 20; // Adjust this value based on when you want the header to become sticky
 
@@ -363,4 +267,29 @@
         updateHeaderSticky();
     });
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const categoryItems = document.querySelectorAll('.item-categories p');
+
+        categoryItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const selectedCategory = this.textContent.trim();
+                window.location.href = "{{ route('blog') }}?category=" + selectedCategory;
+            });
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const artikelItems = document.querySelectorAll('.artikel li');
+
+        artikelItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const selectedCategory = this.textContent.trim();
+                window.location.href = "{{ route('blog') }}?category=" + selectedCategory;
+            });
+        });
+    });
+</script>
+
 </html>

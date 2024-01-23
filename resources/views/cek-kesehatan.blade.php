@@ -40,31 +40,41 @@
         </div>
         <h1>Hitung Kesehatan Kamu Dengan Kalkulator Kesehatan</h1>
         <div class="item-cek-kesehatan">
-            <div class="card-cek-kesehatan">
-                <img src="image/bmi.png" alt="">
-                <h1>Kalkulator BMI</h1>
-                <p>Digunakan untuk menentukan kategori berat badan ideal atau tidak</p>
-            </div>
-            <div class="card-cek-kesehatan">
-                <img src="image/kalori.png" alt="">
-                <h1>Kalkulator Kalori</h1>
-                <p>Digunakan untuk menghitung kebutuhan kalori harian</p>
-            </div>
-            <div class="card-cek-kesehatan">
-                <img src="image/hpl.png" alt="">
-                <h1>Kalkulator HPL</h1>
-                <p>Digunakan untuk menentukan minggu kelahiran buah hati</p>
-            </div>
-            <div class="card-cek-kesehatan">
-                <img src="image/stress.png" alt="">
-                <h1>Kalkulator Stress</h1>
-                <p>Digunakan untuk menghitung tingkat stress</p>
-            </div>
-            <div class="card-cek-kesehatan">
-                <img src="image/cemas.png" alt="">
-                <h1>Kalkulator Kecemasan</h1>
-                <p>Digunakan untuk menghitung tingkat kecemasan</p>
-            </div>
+            <a href="{{ route('bmi') }}">
+                <div class="card-cek-kesehatan">
+                    <img src="image/bmi.png" alt="">
+                    <h1>Kalkulator BMI</h1>
+                    <p>Digunakan untuk menentukan kategori berat badan ideal atau tidak</p>
+                </div>
+            </a>
+            <a href="{{ route('kalori') }}">
+                <div class="card-cek-kesehatan">
+                    <img src="image/kalori.png" alt="">
+                    <h1>Kalkulator Kalori</h1>
+                    <p>Digunakan untuk menghitung kebutuhan kalori harian</p>
+                </div>
+            </a>
+            <a href="{{ route('hpl') }}">
+                <div class="card-cek-kesehatan">
+                    <img src="image/hpl.png" alt="">
+                    <h1>Kalkulator HPL</h1>
+                    <p>Digunakan untuk menentukan minggu kelahiran buah hati</p>
+                </div>
+            </a>
+            <a href="{{ route('stress') }}">
+                <div class="card-cek-kesehatan">
+                    <img src="image/stress.png" alt="">
+                    <h1>Kalkulator Stress</h1>
+                    <p>Digunakan untuk menghitung tingkat stress</p>
+                </div>
+            </a>
+            <a href="{{ route('cemas') }}">
+                <div class="card-cek-kesehatan">
+                    <img src="image/cemas.png" alt="">
+                    <h1>Kalkulator Kecemasan</h1>
+                    <p>Digunakan untuk menghitung tingkat kecemasan</p>
+                </div>
+            </a>
         </div>
     </section>
     <!-- Footer -->
@@ -124,10 +134,9 @@
             navbar.classList.remove('open');
         }
     });
-
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const header = document.querySelector('header');
         const scrollThreshold = 20; // Adjust this value based on when you want the header to become sticky
 
@@ -148,4 +157,5 @@
         updateHeaderSticky();
     });
 </script>
+
 </html>

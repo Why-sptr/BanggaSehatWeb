@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Booking Dokter</title>
-        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Dokter</title>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/responsivemobile.css') }}">
-        <!-- Font -->
-        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-            rel="stylesheet">
-    </head>
+    <!-- Font -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
 <body>
     <!-- Navbar -->
     <header class="sticky-header">
@@ -41,182 +43,51 @@
             <div class="main-dokter">
                 <h1>Dokter Gigi</h1>
                 <div class="wrap-card-booking-dokter">
-                    <a href="/booking-detail">
-                        <div class="card-booking-dokter">
-                            <img src="image/dokter1.png" alt="">
-                            <span>Dokter Gigi</span>
-                            <h1>Dokter Amelia</h1>
-                            <div class="rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
+                    @foreach ($dokterGigis as $dokterGigi)
+                        <a href="{{ route('booking-detail', ['id' => $dokterGigi->id, 'user_id' => $userId]) }}">
+                            <div class="card-booking-dokter">
+                                <img src="{{ asset($dokterGigi->picture) }}" alt="Gambar Dokter">
+                                <span>{{ $dokterGigi->spesialis }}</span>
+                                <h1>{{ $dokterGigi->name }}</h1>
+                                <div class="rating">
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                </div>
+                                <p>Rating 5 dari 5</p>
                             </div>
-                            <p>Rating 5 dari 5</p>
-                        </div>
-                    </a>
-                    <a href="/booking-detail">
-                        <div class="card-booking-dokter">
-                            <img src="image/dokter2.png" alt="">
-                            <span>Dokter Gigi</span>
-                            <h1>Dokter Amelia</h1>
-                            <div class="rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                            </div>
-                            <p>Rating 5 dari 5</p>
-                        </div>
-                    </a>
-                    <a href="/booking-detail">
-                        <div class="card-booking-dokter">
-                            <img src="image/dokter3.png" alt="">
-                            <span>Dokter Gigi</span>
-                            <h1>Dokter Amelia</h1>
-                            <div class="rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                            </div>
-                            <p>Rating 5 dari 5</p>
-                        </div>
-                    </a>
-                    <a href="/booking-detail">
-                        <div class="card-booking-dokter">
-                            <img src="image/dokter4.png" alt="">
-                            <span>Dokter Gigi</span>
-                            <h1>Dokter Amelia</h1>
-                            <div class="rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                            </div>
-                            <p>Rating 5 dari 5</p>
-                        </div>
-                    </a>
-                    <a href="/booking-detail">
-                        <div class="card-booking-dokter">
-                            <img src="image/dokter5.png" alt="">
-                            <span>Dokter Gigi</span>
-                            <h1>Dokter Amelia</h1>
-                            <div class="rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                            </div>
-                            <p>Rating 5 dari 5</p>
-                        </div>
-                    </a>
-                    <a href="/booking-detail">
-                        <div class="card-booking-dokter">
-                            <img src="image/dokter6.png" alt="">
-                            <span>Dokter Gigi</span>
-                            <h1>Dokter Amelia</h1>
-                            <div class="rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                            </div>
-                            <p>Rating 5 dari 5</p>
-                        </div>
-                    </a>
+                        </a>
+                    @endforeach
                 </div>
             </div>
             <div class="main-dokter">
                 <h1>Dokter Umum</h1>
                 <div class="wrap-card-booking-dokter">
-                    <a href="/booking-detail">
-                        <div class="card-booking-dokter">
-                            <img src="image/dokter.png" alt="">
-                            <span>Dokter Gigi</span>
-                            <h1>Dokter Amelia</h1>
-                            <div class="rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
+                    @foreach ($dokterUmums as $dokterUmum)
+                        <a href="{{ route('booking-detail', ['id' => $dokterGigi->id]) }}">
+                            <div class="card-booking-dokter">
+                                <img src="{{ asset($dokterUmum->picture) }}" alt="Gambar Dokter">
+                                <span>{{ $dokterUmum->spesialis }}</span>
+                                <h1>{{ $dokterUmum->name }}</h1>
+                                <div class="rating">
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                    <i class='bx bxs-star'></i>
+                                </div>
+                                <p>Rating 5 dari 5</p>
                             </div>
-                            <p>Rating 5 dari 5</p>
-                        </div>
-                    </a>
-                    <a href="/booking-detail">
-                        <div class="card-booking-dokter">
-                            <img src="image/dokter7.png" alt="">
-                            <span>Dokter Gigi</span>
-                            <h1>Dokter Amelia</h1>
-                            <div class="rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                            </div>
-                            <p>Rating 5 dari 5</p>
-                        </div>
-                    </a>
-                    <a href="/booking-detail">
-                        <div class="card-booking-dokter">
-                            <img src="image/dokter8.png" alt="">
-                            <span>Dokter Gigi</span>
-                            <h1>Dokter Amelia</h1>
-                            <div class="rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                            </div>
-                            <p>Rating 5 dari 5</p>
-                        </div>
-                    </a>
-                    <a href="/booking-detail">
-                        <div class="card-booking-dokter">
-                            <img src="image/dokter4.png" alt="">
-                            <span>Dokter Gigi</span>
-                            <h1>Dokter Amelia</h1>
-                            <div class="rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                            </div>
-                            <p>Rating 5 dari 5</p>
-                        </div>
-                    </a>
-                    <a href="/booking-detail">
-                        <div class="card-booking-dokter">
-                            <img src="image/dokter9.png" alt="">
-                            <span>Dokter Gigi</span>
-                            <h1>Dokter Amelia</h1>
-                            <div class="rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                            </div>
-                            <p>Rating 5 dari 5</p>
-                        </div>
-                    </a>
+                        </a>
+                    @endforeach
                 </div>
             </div>
             <div class="main-dokter">
                 <h1>Dokter Bedah</h1>
                 <div class="wrap-card-booking-dokter">
-                    <a href="/booking-detail">
+                    <a href="{{ route('booking-detail', ['id' => $dokterGigi->id]) }}">
                         <div class="card-booking-dokter">
                             <img src="image/doktetr10.png" alt="">
                             <span>Dokter Gigi</span>
@@ -231,7 +102,7 @@
                             <p>Rating 5 dari 5</p>
                         </div>
                     </a>
-                    <a href="/booking-detail">
+                    <a href="{{ route('booking-detail', ['id' => $dokterGigi->id]) }}">
                         <div class="card-booking-dokter">
                             <img src="image/dokter11.png" alt="">
                             <span>Dokter Gigi</span>
@@ -246,7 +117,7 @@
                             <p>Rating 5 dari 5</p>
                         </div>
                     </a>
-                    <a href="/booking-detail">
+                    <a href="{{ route('booking-detail', ['id' => $dokterGigi->id]) }}">
                         <div class="card-booking-dokter">
                             <img src="image/dokter12.png" alt="">
                             <span>Dokter Gigi</span>
@@ -261,7 +132,7 @@
                             <p>Rating 5 dari 5</p>
                         </div>
                     </a>
-                    <a href="/booking-detail">
+                    <a href="{{ route('booking-detail', ['id' => $dokterGigi->id]) }}">
                         <div class="card-booking-dokter">
                             <img src="image/dokter11.png" alt="">
                             <span>Dokter Gigi</span>
@@ -337,10 +208,9 @@
             navbar.classList.remove('open');
         }
     });
-
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const header = document.querySelector('header');
         const scrollThreshold = 20; // Adjust this value based on when you want the header to become sticky
 
@@ -361,4 +231,5 @@
         updateHeaderSticky();
     });
 </script>
+
 </html>

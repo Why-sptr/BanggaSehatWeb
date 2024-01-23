@@ -33,37 +33,48 @@
             <div class='bx bx-menu' id="menu-icon"></div>
         </div>
     </header>
-    <section class="edit-profile">
+    <form action="{{ route('profile.update') }}" class="edit-profile">
+        @csrf
+        @method('PUT')
         <div class="profile-picture">
-            <img src="image/user.png" alt="">
+            <img src="{{ Auth::user()->profile_picture }}" alt="Profile Picture">
             <a href="#"><i class='bx bx-plus'></i></a>
         </div>
         <div class="data-profile">
             <div class="name">
                 <div class="first-name">
                     <p>Nama Pertama</p>
-                    <input type="text">
+                    <input type="text" name="first_name" value="{{ Auth::user()->first_name }}">
                 </div>
                 <div class="last-name">
                     <p>Nama Terakhir</p>
-                    <input type="name">
+                    <input type="text" name="last_name" value="{{ Auth::user()->last_name }}">
                 </div>
             </div>
             <div class="usia">
                 <p>Usia</p>
-                <input type="text">
+                <input type="text" name="usia" value="{{ Auth::user()->usia }}">
             </div>
             <div class="phone">
                 <p>Nomor</p>
-                <input type="number">
+                <input type="text" name="phone" value="{{ Auth::user()->phone }}">
             </div>
             <div class="email">
                 <p>Email</p>
-                <input type="text">
+                <input type="text" name="email" value="{{ Auth::user()->email }}">
             </div>
         </div>
-        <a href="#">Simpan Profile</a>
-    </section>
+        <div class="tombol-profile">
+            <button type="submit">Simpan Profile</button>
+            @if (auth()->check())
+            <button>
+                <a href="{{ route('logout') }}">Keluar</a>
+            </button>
+            @else
+            @endif
+        </div>
+    </form>
+
 </body>
 <script>
     let menu = document.querySelector('#menu-icon');

@@ -40,22 +40,28 @@
         </a>
         <div class="main-card-antrian">
             <div class="card-antrian">
-                <img src="image/dokter1.png" alt="">
+                @if ($antrian->dokter->picture)
+                    <img src="{{ asset($antrian->dokter->picture) }}" alt="Gambar Dokter">
+                @else
+                    <img src="{{ asset('path/to/default/image.jpg') }}" alt="Default Image">
+                @endif
+
                 <div class="antrian-profile">
-                    <h1>Dr. Irfan</h1>
-                    <span>Dokter Umum</span>
+                    <h1>{{ $antrian->dokter->name }}</h1>
+                    <span>{{ $antrian->dokter->spesialis }}</span>
                     <h1>Nomor Antrian :</h1>
-                    <p>D-324298</p>
+                    <p>{{ $antrian->nomor_antrian }}</p>
                 </div>
                 <div class="antrian-booked">
                     <h1>Nama :</h1>
-                    <p>Aril Ponco</p>
+                    <p>{{ $antrian->nama_pasien }}</p>
                     <h1>Nomor HP :</h1>
-                    <p>0812-9828-9282</p>
+                    <p>{{ $antrian->hp_pasien }}</p>
                 </div>
             </div>
-            <button>Lihat Riwayat</button>
+            <a href="{{ route('riwayat', ['userId' => auth()->user()->id]) }}"><button>Lihat Riwayat</button></a>
         </div>
+
     </section>
     <!-- Footer -->
     <footer>
@@ -114,10 +120,9 @@
             navbar.classList.remove('open');
         }
     });
-
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const header = document.querySelector('header');
         const scrollThreshold = 20; // Adjust this value based on when you want the header to become sticky
 
@@ -138,4 +143,5 @@
         updateHeaderSticky();
     });
 </script>
+
 </html>

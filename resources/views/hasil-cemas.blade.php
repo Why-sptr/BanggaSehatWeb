@@ -35,12 +35,20 @@
     </header>
     <section class="hasil-stress">
         <img src="image/hasilcemas.png" alt="">
-        <h1>CEMAS BANGETTT</h1>
-        <P>Kecemasan yang tinggi seringkali membuat kita merasa terjebak dalam labirin pikiran yang sulit dikendalikan.
-            Rasa takut yang konstan dan ketidakpastian dapat merongrong keseimbangan emosional kita. Namun, penting
-            untuk diingat bahwa kecemasan adalah pengalaman yang dapat diatasi. Saat kita menghadapi tingkat kecemasan
-            yang tinggi, penting untuk memahami bahwa kita tidak sendiri dalam perjalanan ini.</P>
-        <button>Ulangi Tes</button>
+        <h1>{{ $cemasLevel }}</h1>
+
+        <!-- Tampilkan pesan atau saran berdasarkan tingkat stres -->
+        @if ($cemasLevel == 'Rendah')
+            <p>Selamat! Tingkat Cemas Anda rendah. Tetap pertahankan pola hidup sehat.</p>
+        @elseif ($cemasLevel == 'Sedang')
+            <p>Anda memiliki tingkat Cemas sedang. Luangkan waktu untuk istirahat dan kelola Cemas dengan baik.</p>
+        @else
+            <p>Anda memiliki tingkat Cemas tinggi. Pertimbangkan untuk mencari dukungan dan melibatkan diri dalam
+                kegiatan relaksasi.</p>
+        @endif
+        <a href="{{ route('cemas') }}">
+            <button>Ulangi Tes</button>
+        </a>
     </section>
     <!-- Footer -->
     <footer>

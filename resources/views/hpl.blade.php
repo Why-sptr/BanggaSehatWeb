@@ -36,31 +36,30 @@
     <section class="bmi">
         <div class="hero-title">
             <img src="image/beat.png" alt="">
-            <p>Hitung BMI Kamu</p>
+            <p>Hitung Hari Kelahiran Buah Hati</p>
         </div>
         <h1 class="bmih1">Hitung HPL si Buah Hati Kamu Supaya Tidak Bingung Menanti</h1>
         <div class="cek-bmi">
             <div class="usia-bmi">
-                <h1>Tanggal Terakhir Haid</h1>
-                <input type="date">
+                <h1>Hari Pertama Siklus Menstruasi Terakhir</h1>
+                <input type="date" id="firstDay">
             </div>
             <div class="tinggi-bmi">
-                <h1>Siklus Durasi Haid</h1>
-                <input type="number">
+                <h1>Siklus Durasi Haid (dalam hari)</h1>
+                <input type="number" id="cycleDuration">
             </div>
         </div>
-        <button>Cek Hasil</button>
+        <button onclick="calculateHPL()">Cek Hasil</button>
     </section>
+
     <section class="hasil-bmi">
         <div class="main-hasil-bmi">
             <h1>Hasil</h1>
-            <div class="content-hasil-bmi">
-                <p>HPL :</p>
-                <h1>39 Minggu</h1>
-                <p>Usia Kehamilan 1 Minggu</p>
+            <div class="content-hasil-bmi" id="resultCalorieContainer">
+                <!-- Hasil HPL dan usia kehamilan akan ditampilkan di sini -->
             </div>
         </div>
-    </section>
+    </section>    
     <!-- Footer -->
     <footer>
         <div class="logo">
@@ -142,4 +141,32 @@
         updateHeaderSticky();
     });
 </script>
+<script>
+    function calculateHPL() {
+        // Ambil nilai dari input
+        var firstDay = new Date(document.getElementById("firstDay").value);
+        var cycleDuration = parseInt(document.getElementById("cycleDuration").value);
+
+        // Hitung HPL menggunakan rumus Naegele
+        var hplDate = new Date(firstDay.getTime());
+        hplDate.setMonth(hplDate.getMonth() + 9); // Tambah 9 bulan
+        hplDate.setDate(hplDate.getDate() + (cycleDuration - 21)); // Tambah selisih (cycleDuration - 21) hari
+
+        // Format hasil HPL menjadi "DD MMMM YYYY"
+        var options = { day: 'numeric', month: 'long', year: 'numeric' };
+        var formattedHPL = hplDate.toLocaleDateString('id-ID', options);
+
+        // Hitung usia kehamilan
+        var today = new Date();
+        var pregnancyAge = Math.floor((today - firstDay) / (1000 * 60 * 60 * 24 * 7)) + 1;
+
+        // Update elemen HTML dengan hasil perhitungan
+        var resultContainer = document.getElementById("resultCalorieContainer");
+        resultContainer.innerHTML = ""; // Membersihkan isi sebelumnya
+        resultContainer.innerHTML += "<p>HPL :</p>";
+        resultContainer.innerHTML += "<h1>" + formattedHPL + "</h1>";
+        resultContainer.innerHTML += "<p>Usia Kehamilan " + pregnancyAge + " Minggu</p>";
+    }
+</script>
+
 </html>

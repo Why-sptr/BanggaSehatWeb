@@ -35,9 +35,20 @@
     </header>
     <section class="hasil-stress">
         <img src="image/hasilstress.png" alt="">
-        <h1>STRESS TINGGI</h1>
-        <P>Stres merupakan reaksi alami terhadap tekanan dan tantangan hidup, namun, tingkat stres yang tinggi dapat berdampak negatif pada kesehatan fisik dan mental. Peningkatan tuntutan pekerjaan, kehidupan pribadi yang sibuk, dan kondisi lingkungan tertentu dapat menjadi pemicu stres yang signifikan.</P>
-        <button>Ulangi Tes</button>
+        <h1>{{ $stressLevel }}</h1>
+
+        <!-- Tampilkan pesan atau saran berdasarkan tingkat stres -->
+        @if ($stressLevel == 'Rendah')
+            <p>Selamat! Tingkat stres Anda rendah. Tetap pertahankan pola hidup sehat.</p>
+        @elseif ($stressLevel == 'Sedang')
+            <p>Anda memiliki tingkat stres sedang. Luangkan waktu untuk istirahat dan kelola stres dengan baik.</p>
+        @else
+            <p>Anda memiliki tingkat stres tinggi. Pertimbangkan untuk mencari dukungan dan melibatkan diri dalam
+                kegiatan relaksasi.</p>
+        @endif
+        <a href="{{ route('stress') }}">
+            <button>Ulangi Tes</button>
+        </a>
     </section>
     <!-- Footer -->
     <footer>
@@ -97,10 +108,9 @@
             navbar.classList.remove('open');
         }
     });
-
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const header = document.querySelector('header');
         const scrollThreshold = 20; // Adjust this value based on when you want the header to become sticky
 
@@ -121,4 +131,5 @@
         updateHeaderSticky();
     });
 </script>
+
 </html>

@@ -18,10 +18,9 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'first_name', 'last_name', 'email', 'password', 'google_id', 'profile_picture', 'usia', 'nomor',
     ];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,4 +40,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // User.php
+    public function antrians()
+    {
+        return $this->hasMany(Antrian::class);
+    }
 }

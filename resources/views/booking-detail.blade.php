@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Booking Dokter</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/responsivemobile.css') }}">
@@ -37,7 +38,9 @@
         <div class="tanggal">
             <div class="main-tanggal">
                 <h1>Tanggal</h1>
+                <button onclick="changeMonth('prev')">Previous Month</button>
                 <p id="currentMonth"></p>
+                <button onclick="changeMonth('next')">Next Month</button>
             </div>
             <div class="item-tanggal" id="tanggalContainer"></div>
         </div>
@@ -119,6 +122,7 @@
         </div>
     </footer>
 </body>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
     function changeColor(element) {
         // Hapus kelas "selected" dari semua elemen dengan kelas "select-tanggal"
@@ -132,54 +136,19 @@
     }
 </script>
 <script>
-    function updateTanggal() {
-        var tanggalContainer = document.getElementById("tanggalContainer");
-        tanggalContainer.innerHTML = "";
-
-        var today = new Date();
-        var startDay = new Date(today.getFullYear(), today.getMonth(), 1).getDay();
-        startDay = (startDay - 1 + 7) % 7; // Menyesuaikan indeks hari dimulai dari Senin
-        var hari = ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Ming"];
-
-        for (var i = 0; i < 7; i++) {
-            var dayIndex = (startDay + i) % 7;
-            var option = document.createElement("div");
-            option.className = "select-tanggal";
-            option.innerHTML = "<p>" + hari[dayIndex] + "</p><p>" + (i + 1) + "</p>";
-            option.onclick = function() {
-                changeColor(this);
-            };
-            tanggalContainer.appendChild(option);
-        }
-    }
-
-    function getCurrentMonth() {
-        var today = new Date();
-        var options = {
-            month: 'long',
-            year: 'numeric'
-        };
-        var bulanSaatIni = today.toLocaleDateString('id-ID', options);
-        document.getElementById("currentMonth").textContent = bulanSaatIni;
-    }
-
-
     function changeColor(element) {
-        var allElements = document.querySelectorAll('.select-tanggal');
+        // Hapus kelas "selected" dari semua elemen dengan kelas "select-jam"
+        var allElements = document.querySelectorAll('.select-jam');
         allElements.forEach(function(el) {
             el.classList.remove('selected');
         });
 
+        // Tambahkan kelas "selected" ke elemen yang dipilih
         element.classList.add('selected');
     }
-
-
-
-    window.onload = function() {
-        getCurrentMonth();
-        updateTanggal();
-    };
 </script>
+{{-- Tanggal --}}
+
 <script>
     let menu = document.querySelector('#menu-icon');
     let navbar = document.querySelector('.navbar');
@@ -219,5 +188,171 @@
         updateHeaderSticky();
     });
 </script>
+{{-- Booking --}}
+<script>
+    var selectedDate; // Define a variable to store the selected date globally
+
+    function getCSRFToken() {
+        return $('meta[name="csrf-token"]').attr('content');
+    }
+
+    function updateTanggal(year, month, startDay) {
+        var tanggalContainer = $("#tanggalContainer");
+        tanggalContainer.html("");
+
+        var today = new Date();
+        var currentYear = today.getFullYear();
+        var currentMonth = today.getMonth();
+        var currentDate = today.getDate();
+
+        var lastDay = new Date(year, month + 1, 0).getDate();
+        var hari = ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Ming"];
+
+        for (var i = 0; i < 7; i++) {
+            var dayIndex = (startDay + i) % 7;
+            var date = currentDate - startDay + i;
+            if (date < 1) {
+                date = lastDay + date;
+            }
+
+            var option = $("<div>").addClass("select-tanggal");
+
+            option.html("<p>" + hari[dayIndex] + "</p><p>" + date + "</p>");
+
+            if (currentYear === year && currentMonth === month && date === currentDate) {
+                option.addClass('current-day');
+            }
+
+            option.click(function() {
+                var clickedDate = $(this).find("p:last-child").text();
+
+                selectedDate = year + '-' + (month + 1).toString().padStart(2, '0') + '-' + clickedDate
+                    .toString().padStart(2, '0');
+
+                console.log("Date selected:", selectedDate);
+
+                changeColor($(this));
+            });
+
+
+
+            tanggalContainer.append(option);
+        }
+    }
+
+    function getCurrentMonth() {
+        var today = new Date();
+        var options = {
+            month: 'long',
+            year: 'numeric'
+        };
+        var bulanSaatIni = today.toLocaleDateString('id-ID', options);
+        $("#currentMonth").text(bulanSaatIni);
+    }
+
+    function changeColor(element) {
+        $('.select-tanggal').removeClass('selected');
+        element.addClass('selected');
+    }
+
+    function changeWeek(direction) {
+        var today = new Date();
+        var currentYear = today.getFullYear();
+        var currentMonth = today.getMonth();
+        var currentDate = today.getDate();
+
+        var startDay = (today.getDay() - 1 + 7) % 7; // Adjusting day index to start from Monday
+
+        if (direction === 'next') {
+            currentDate += 7;
+            if (currentDate > new Date(currentYear, currentMonth + 1, 0).getDate()) {
+                currentDate -= 7;
+            }
+        } else if (direction === 'prev') {
+            currentDate -= 7;
+            if (currentDate < 1) {
+                currentDate += 7;
+            }
+        }
+
+        updateTanggal(currentYear, currentMonth, startDay);
+        getCurrentMonth();
+    }
+
+    function bookNow() {
+        console.log("Selected Date:", selectedDate);
+        console.log("Booking button clicked");
+        var selectedJam = $(".select-jam.selected").text();
+        var namaPasien = $(".nama-pasien input").val();
+        var nomorHpPasien = $(".nomor-pasien input").val();
+        $("button").prop("disabled", true);
+        var dokterId = getParameterByName('id');
+        var userId = getParameterByName('user_id');
+
+        if (!dokterId || !userId || !selectedDate) {
+            alert("Error: Dokter, user, atau tanggal tidak terdefinisi.");
+            return;
+        }
+
+        console.log("Booking started");
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': getCSRFToken()
+            }
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "/book-dokter/" + dokterId + "/" + userId + "/" + selectedDate + "/" + selectedJam,
+            data: {
+                nama_pasien: namaPasien,
+                hp_pasien: nomorHpPasien
+            },
+            success: function(response) {
+                console.log("Booking success");
+                if (response.redirect_url) {
+                    window.location.href = response.redirect_url;
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function(error) {
+                console.error("Booking error:", error);
+                $("button").prop("disabled", false);
+                alert("Booking failed: " + error.responseJSON.message);
+            }
+        });
+
+    }
+
+    function getParameterByName(name, url = window.location.href) {
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    $(".select-jam").click(function() {
+        $(".select-jam").removeClass("selected");
+        $(this).addClass("selected");
+    });
+
+    $(".card-booking-dokter a").click(function() {
+        $(".card-booking-dokter a").removeClass("selected");
+        $(this).addClass("selected");
+    });
+
+    $("button").one("click", function() {
+        bookNow();
+    });
+
+    $(document).ready(function() {
+        getCurrentMonth();
+        updateTanggal(new Date().getFullYear(), new Date().getMonth(), (new Date().getDay() - 1 + 7) % 7);
+    });
+</script>
+
 
 </html>

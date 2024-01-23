@@ -36,18 +36,18 @@
     <section class="bmi">
         <div class="hero-title">
             <img src="image/beat.png" alt="">
-            <p>Hitung BMI Kamu</p>
+            <p>Hitung Kebutuhan Kalori Kamu</p>
         </div>
         <h1 class="bmih1">Hitung Kebutuhan Kalori Kamu Supaya Tercukupi</h1>
         <div class="cek-bmi">
             <div class="main-gender-bmi">
                 <h1>Jenis Kelamin</h1>
                 <div class="gender-bmi">
-                    <div class="pria">
+                    <div class="pria" onclick="selectGender('pria')">
                         <img src="image/pria.png" alt="">
                         <p>Laki-Laki</p>
                     </div>
-                    <div class="wanita">
+                    <div class="wanita" onclick="selectGender('wanita')">
                         <img src="image/wanita.png" alt="">
                         <p>Perempuan</p>
                     </div>
@@ -55,26 +55,24 @@
             </div>
             <div class="usia-bmi">
                 <h1>Usia</h1>
-                <input type="number">
+                <input type="number" id="ageInput">
             </div>
             <div class="tinggi-bmi">
                 <h1>Tinggi</h1>
-                <input type="number">
+                <input type="number" id="heightInput">
             </div>
             <div class="berat-badan-bmi">
                 <h1>Berat Badan</h1>
-                <input type="number">
+                <input type="number" id="weightInput">
             </div>
+            <button onclick="calculateCalories()">Cek Hasil</button>
         </div>
-        <button>Cek Hasil</button>
     </section>
     <section class="hasil-bmi">
         <div class="main-hasil-bmi">
             <h1>Hasil</h1>
-            <div class="content-hasil-bmi">
-                <p>Membutuhkan :</p>
-                <h1>2000 cal</h1>
-                <p>Untuk memenuhi kebutuhuan kalori harian</p>
+            <div class="content-hasil-bmi" id="resultCalorieContainer">
+                <!-- Hasil kebutuhan kalori akan ditampilkan di sini -->
             </div>
         </div>
     </section>
@@ -159,4 +157,95 @@
         updateHeaderSticky();
     });
 </script>
+<script>
+    function selectGender(gender) {
+        // Reset background pada semua elemen gender
+        var genderElements = document.querySelectorAll('.gender-bmi div');
+        genderElements.forEach(function (element) {
+            element.classList.remove('selected');
+        });
+
+        // Tandai background pada elemen gender yang dipilih
+        var selectedElement = document.querySelector(`.gender-bmi .${gender}`);
+        selectedElement.classList.add('selected');
+
+        // Tambahkan logika untuk menangani pemilihan jenis kelamin
+        console.log("Jenis Kelamin: " + gender);
+    }
+
+    function calculateCalories() {
+        // Ambil nilai input dari formulir
+        var age = document.getElementById('ageInput').value;
+        var height = document.getElementById('heightInput').value;
+        var weight = document.getElementById('weightInput').value;
+
+        // Ambil nilai jenis kelamin yang dipilih
+        var gender = document.querySelector('.gender-bmi .selected').classList.contains('pria') ? 'pria' : 'wanita';
+
+        // Lakukan validasi input (opsional)
+        if (isNaN(age) || isNaN(height) || isNaN(weight)) {
+            alert("Mohon masukkan nilai yang valid untuk usia, tinggi, dan berat badan.");
+            return;
+        }
+
+        // Hitung kebutuhan kalori (sesuaikan dengan rumus yang sesuai)
+        var calculatedCalories = calculateCaloriesBasedOnFormula(age, height, weight, gender);
+
+        // Tampilkan hasil di dalam elemen HTML
+        var resultContainer = document.getElementById('resultCalorieContainer');
+        resultContainer.innerHTML = `
+            <p>Membutuhkan :</p>
+            <h1>${calculatedCalories} cal</h1>
+            <p>Untuk memenuhi kebutuhan kalori harian</p>
+        `;
+    }
+    function calculateCaloriesBasedOnFormula(age, height, weight, gender) {
+    // Sebagai contoh, menggunakan formula Harris-Benedict
+    // Sesuaikan atau ganti dengan formula yang sesuai dengan kebutuhan Anda
+
+    // Konstanta dalam rumus Harris-Benedict
+    var baseCaloriesForMen = 88.362;
+    var baseCaloriesForWomen = 447.593;
+    var caloriesPerKgHeightForMen = 13.397;
+    var caloriesPerKgHeightForWomen = 9.247;
+    var caloriesPerKgWeightForMen = 4.799;
+    var caloriesPerKgWeightForWomen = 3.098;
+    var caloriesPerYear = 5.677;
+
+    // Hitung kebutuhan kalori berdasarkan rumus Harris-Benedict
+    var baseCalories = (gender === 'pria') ? baseCaloriesForMen : baseCaloriesForWomen;
+    var caloriesForHeight = (gender === 'pria') ? (caloriesPerKgHeightForMen * height) : (caloriesPerKgHeightForWomen * height);
+    var caloriesForWeight = (gender === 'pria') ? (caloriesPerKgWeightForMen * weight) : (caloriesPerKgWeightForWomen * weight);
+    var caloriesForAge = caloriesPerYear * age;
+
+    // Total kebutuhan kalori
+    var calculatedCalories = baseCalories + caloriesForHeight + caloriesForWeight - caloriesForAge;
+
+    return Math.round(calculatedCalories); // Bulatkan kebutuhan kalori menjadi bilangan bulat
+    }
+    function calculateCaloriesBasedOnFormula(age, height, weight, gender) {
+        // Sebagai contoh, menggunakan formula Harris-Benedict
+        // Sesuaikan atau ganti dengan formula yang sesuai dengan kebutuhan Anda
+
+        // Konstanta dalam rumus Harris-Benedict
+        var baseCaloriesForMen = 88.362;
+        var baseCaloriesForWomen = 447.593;
+        var caloriesPerKgHeightForMen = 13.397;
+        var caloriesPerKgHeightForWomen = 9.247;
+        var caloriesPerKgWeightForMen = 4.799;
+        var caloriesPerKgWeightForWomen = 3.098;
+        var caloriesPerYear = 5.677;
+
+        // Hitung kebutuhan kalori berdasarkan rumus Harris-Benedict
+        var baseCalories = (gender === 'pria') ? baseCaloriesForMen : baseCaloriesForWomen;
+        var caloriesForHeight = (gender === 'pria') ? (caloriesPerKgHeightForMen * height) : (caloriesPerKgHeightForWomen * height);
+        var caloriesForWeight = (gender === 'pria') ? (caloriesPerKgWeightForMen * weight) : (caloriesPerKgWeightForWomen * weight);
+        var caloriesForAge = caloriesPerYear * age;
+
+        // Total kebutuhan kalori
+        var calculatedCalories = baseCalories + caloriesForHeight + caloriesForWeight - caloriesForAge;
+
+        return Math.round(calculatedCalories); // Bulatkan kebutuhan kalori menjadi bilangan bulat
+    }
+    </script>
 </html>

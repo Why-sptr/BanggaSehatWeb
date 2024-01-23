@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Riwayat</title>
-        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/responsivemobile.css') }}">
-        <!-- Font -->
-        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-            rel="stylesheet">
-    </head>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat</title>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/responsivemobile.css') }}">
+    <!-- Font -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
 <body>
-     <!-- Navbar -->
-     <header class="sticky-header">
-        <a href="/homepage" class="logo"><img src="image/logo web.png" alt=""></a>
+    <!-- Navbar -->
+    <header class="sticky-header">
+        <a href="/homepage" class="logo"><img src="{{asset ('image/logo web.png')}}" alt=""></a>
         <ul class="navbar">
             <li><a href="/homepage">Home</a></li>
             <li><a href="/blog">Blog</a></li>
@@ -33,8 +35,8 @@
     </header>
     <section class="riwayat">
         <div class="hero-title">
-            <img src="image/beat.png" alt="">
-            <p>Apak Kamu Puas Dengan Pelayanan Kami?</p>
+            <img src={{ asset('image/beat.png') }} alt="">
+            <p>Apa Kamu Puas Dengan Pelayanan Kami?</p>
         </div>
         <h1>
             Riwayat Konsultasi Kamu Akan Tersedia Disini
@@ -44,111 +46,27 @@
             <button>Cari</button>
         </div>
         <div class="main-card-riwayat">
-            <div class="card-riwayat">
-                <img src="image/dokter.png" alt="">
-                <div class="dokter-profile">
-                    <h1>Dr. Irfan</h1>
-                    <span>Dokter Umum</span>
-                    <div class="rating">
-                        <i class='bx bxs-star'></i>
-                        <i class='bx bxs-star'></i>
-                        <i class='bx bxs-star'></i>
-                        <i class='bx bxs-star'></i>
-                        <i class='bx bxs-star'></i>
+            @foreach ($queueHistory as $antrian)
+                <div class="card-riwayat">
+                    <img src="{{ asset($antrian->dokter->picture) }}" alt="Gambar Dokter">
+                    <div class="dokter-profile">
+                        <h1>{{ $antrian->dokter->name }}</h1>
+                        <span>{{ $antrian->dokter->spesialis }}</span>
+                        <div class="rating">
+                            @for ($i = 1; $i <= 5; $i++)
+                                <i class='bx bxs-star{{ $i <= $antrian->dokter->rating ? ' filled' : '' }}'></i>
+                            @endfor
+                        </div>
+                        <p>Rating {{ $antrian->dokter->rating }} dari 5</p>
                     </div>
-                    <p>Rating 5 dari 5</p>
-                </div>
-                <div class="dokter-booked">
-                    <h1>Nomor Antrian :</h1>
-                    <p>D3213</p>
-                    <h1>Status :</h1>
-                    <span>Selesai</span>
-                </div>
-            </div>
-            <div class="card-riwayat">
-                <img src="image/dokter.png" alt="">
-                <div class="dokter-profile">
-                    <h1>Dr. Irfan</h1>
-                    <span>Dokter Umum</span>
-                    <div class="rating">
-                        <i class='bx bxs-star'></i>
-                        <i class='bx bxs-star'></i>
-                        <i class='bx bxs-star'></i>
-                        <i class='bx bxs-star'></i>
-                        <i class='bx bxs-star'></i>
+                    <div class="dokter-booked">
+                        <h1>Nomor Antrian :</h1>
+                        <p>{{ $antrian->nomor_antrian }}</p>
+                        <h1>Status :</h1>
+                        <span>{{ $antrian->status }}</span>
                     </div>
-                    <p>Rating 5 dari 5</p>
                 </div>
-                <div class="dokter-booked">
-                    <h1>Nomor Antrian :</h1>
-                    <p>D3213</p>
-                    <h1>Status :</h1>
-                    <span>Selesai</span>
-                </div>
-            </div>
-            <div class="card-riwayat">
-                <img src="image/dokter.png" alt="">
-                <div class="dokter-profile">
-                    <h1>Dr. Irfan</h1>
-                    <span>Dokter Umum</span>
-                    <div class="rating">
-                        <i class='bx bxs-star'></i>
-                        <i class='bx bxs-star'></i>
-                        <i class='bx bxs-star'></i>
-                        <i class='bx bxs-star'></i>
-                        <i class='bx bxs-star'></i>
-                    </div>
-                    <p>Rating 5 dari 5</p>
-                </div>
-                <div class="dokter-booked">
-                    <h1>Nomor Antrian :</h1>
-                    <p>D3213</p>
-                    <h1>Status :</h1>
-                    <span>Selesai</span>
-                </div>
-            </div>
-            <div class="card-riwayat">
-                <img src="image/dokter.png" alt="">
-                <div class="dokter-profile">
-                    <h1>Dr. Irfan</h1>
-                    <span>Dokter Umum</span>
-                    <div class="rating">
-                        <i class='bx bxs-star'></i>
-                        <i class='bx bxs-star'></i>
-                        <i class='bx bxs-star'></i>
-                        <i class='bx bxs-star'></i>
-                        <i class='bx bxs-star'></i>
-                    </div>
-                    <p>Rating 5 dari 5</p>
-                </div>
-                <div class="dokter-booked">
-                    <h1>Nomor Antrian :</h1>
-                    <p>D3213</p>
-                    <h1>Status :</h1>
-                    <span>Selesai</span>
-                </div>
-            </div>
-            <div class="card-riwayat">
-                <img src="image/dokter.png" alt="">
-                <div class="dokter-profile">
-                    <h1>Dr. Irfan</h1>
-                    <span>Dokter Umum</span>
-                    <div class="rating">
-                        <i class='bx bxs-star'></i>
-                        <i class='bx bxs-star'></i>
-                        <i class='bx bxs-star'></i>
-                        <i class='bx bxs-star'></i>
-                        <i class='bx bxs-star'></i>
-                    </div>
-                    <p>Rating 5 dari 5</p>
-                </div>
-                <div class="dokter-booked">
-                    <h1>Nomor Antrian :</h1>
-                    <p>D3213</p>
-                    <h1>Status :</h1>
-                    <span>Selesai</span>
-                </div>
-            </div>
+            @endforeach
         </div>
     </section>
     <!-- Footer -->
@@ -208,10 +126,9 @@
             navbar.classList.remove('open');
         }
     });
-
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const header = document.querySelector('header');
         const scrollThreshold = 20; // Adjust this value based on when you want the header to become sticky
 
@@ -232,4 +149,5 @@
         updateHeaderSticky();
     });
 </script>
+
 </html>

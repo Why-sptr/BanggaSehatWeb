@@ -37,13 +37,30 @@
             <li><a href="/cek-kesehatan">Cek Kesehatan</a></li>
             <li><a href="/booking-dokter">Booking Dokter</a></li>
             <li><a href="/rs-terdekat">RS Terdekat</a></li>
+            @if (auth()->check())
+                <!-- Pengguna sudah login -->
+                <li><a href="{{ route('riwayat', ['userId' => auth()->user()->id]) }}">Lihat Riwayat</a></li>
+            @else
+                <!-- Pengguna belum login -->
+                <!-- Tambahkan logika atau tombol lain sesuai kebutuhan -->
+            @endif
+
         </ul>
 
         <div class="main-navbar">
-            <a href="/profile">Login</a>
+            @auth
+                <!-- Jika pengguna sudah login -->
+                <div class="user-profile" onclick="redirectToProfile()">
+                    <img src="{{ Auth::user()->profile_picture }}" alt="Profile Picture">
+                </div>
+            @else
+                <!-- Jika pengguna belum login -->
+                <a href="/login">Login</a>
+            @endauth
             <div class='bx bx-menu' id="menu-icon"></div>
         </div>
     </header>
+
     <!-- Main Web -->
     <main>
         <div class="greeting">
@@ -119,39 +136,14 @@
             </div>
         </div>
         <div class="owl-carousel head-card">
-            <div class="card-doctor">
-                <img src="image/dokter.png" alt="">
-                <span>Dokter Umum</span>
-                <p>Dr. Irfan Abdullah</p>
-            </div>
-            <div class="card-doctor">
-                <img src="image/dokter7.png" alt="">
-                <span>Dokter Umum</span>
-                <p>Dr. Irfan Abdullah</p>
-            </div>
-            <div class="card-doctor">
-                <img src="image/doktetr10.png" alt="">
-                <span>Dokter Umum</span>
-                <p>Dr. Irfan Abdullah</p>
-            </div>
-            <div class="card-doctor">
-                <img src="image/dokter9.png" alt="">
-                <span>Dokter Umum</span>
-                <p>Dr. Irfan Abdullah</p>
-            </div>
-            <div class="card-doctor">
-                <img src="image/dokter2.png" alt="">
-                <span>Dokter Umum</span>
-                <p>Dr. Irfan Abdullah</p>
-            </div>
-            <div class="card-doctor">
-                <img src="image/dokter4.png" alt="">
-                <span>Dokter Umum</span>
-                <p>Dr. Irfan</p>
-            </div>
+            @foreach ($dokters as $dokter)
+                <div class="card-doctor">
+                    <img src="{{ asset($dokter->picture) }}" alt="Gambar Dokter">
+                    <span>{{ $dokter->spesialis }}</span>
+                    <p>{{ $dokter->name }}</p>
+                </div>
+            @endforeach
         </div>
-
-
     </section>
     <!-- Hero 1 -->
     <section class="hero-content1">
@@ -184,7 +176,9 @@
                 <p>Selalu banyak artikel dan konten terupdate tentang kesehatan dan banyaknya dokter yang berpengalaman
                     dalam mengangani semua pasiennya. Selain itu banyak User yang puas akan pelayanan yang kami berikan.
                     Website yang mudah dioperasikan dan ramah terhadap penggunanya serta fitur yang melimpah.</p>
-                <button>Baca Selengkapnya</button>
+                <a href="{{ route('blog') }}">
+                    <button>Baca Selengkapnya</button>
+                </a>
                 <div class="rate">
                     <div class="count">
                         <h1>100+</h1>
@@ -224,22 +218,30 @@
             </a>
         </div>
         <div class="menu-fitur">
-            <div class="card-fitur">
-                <img src="image/kalori.png" alt="">
-                <h1>Kalori</h1>
-            </div>
-            <div class="card-fitur">
-                <img src="image/bmi.png" alt="">
-                <h1>BMI</h1>
-            </div>
-            <div class="card-fitur">
-                <img src="image/cemas.png" alt="">
-                <h1>Cemas</h1>
-            </div>
-            <div class="card-fitur">
-                <img src="image/stress.png" alt="">
-                <h1>Stress</h1>
-            </div>
+            <a href="{{ route('kalori') }}">
+                <div class="card-fitur">
+                    <img src="image/kalori.png" alt="">
+                    <h1>Kalori</h1>
+                </div>
+            </a>
+            <a href="{{ route('bmi') }}">
+                <div class="card-fitur">
+                    <img src="image/bmi.png" alt="">
+                    <h1>BMI</h1>
+                </div>
+            </a>
+            <a href="{{ route('cemas') }}">
+                <div class="card-fitur">
+                    <img src="image/cemas.png" alt="">
+                    <h1>Cemas</h1>
+                </div>
+            </a>
+            <a href="{{ route('stress') }}">
+                <div class="card-fitur">
+                    <img src="image/stress.png" alt="">
+                    <h1>Stress</h1>
+                </div>
+            </a>
         </div>
     </section>
     <!-- Kategori Artikel Home -->
@@ -250,33 +252,39 @@
         </div>
         <h1>Pilihan Artikel Kesehatan Untuk Anda Baca</h1>
         <div class="wrapcard-artikel-home">
-            <div class="card-artikel-home">
-                <img src="image/kesehatan.png" alt="">
-                <h1>Kesehatan</h1>
-                <p>Artikel yang membahas tentang perlunya untuk menjaga kesehatan mental dan fisik.</p>
-                <div class="selengkapnya">
-                    <p>Baca Selengkapnya</p>
-                    <i class='bx bx-right-arrow-alt'></i>
+            <a href="{{ route('blog.category', ['category' => 'kesehatan']) }}">
+                <div class="card-artikel-home">
+                    <img src="image/kesehatan.png" alt="">
+                    <h1>Kesehatan</h1>
+                    <p>Artikel yang membahas tentang perlunya untuk menjaga kesehatan mental dan fisik.</p>
+                    <div class="selengkapnya">
+                        <p>Baca Selengkapnya</p>
+                        <i class='bx bx-right-arrow-alt'></i>
+                    </div>
                 </div>
-            </div>
-            <div class="card-artikel-home">
-                <img src="image/obat.png" alt="">
-                <h1>Obat-Obatan</h1>
-                <p>Membahas tentang obat-obatan untuk meredakan dan menyembuhkan berbagai gejala.</p>
-                <div class="selengkapnya">
-                    <p>Baca Selengkapnya</p>
-                    <i class='bx bx-right-arrow-alt'></i>
+            </a>
+            <a href="{{ route('blog.category', ['category' => 'Obat-obatan']) }}">
+                <div class="card-artikel-home">
+                    <img src="image/obat.png" alt="">
+                    <h1>Obat-Obatan</h1>
+                    <p>Membahas tentang obat-obatan untuk meredakan dan menyembuhkan berbagai gejala.</p>
+                    <div class="selengkapnya">
+                        <p>Baca Selengkapnya</p>
+                        <i class='bx bx-right-arrow-alt'></i>
+                    </div>
                 </div>
-            </div>
-            <div class="card-artikel-home">
-                <img src="image/tips.png" alt="">
-                <h1>Tips and Tricks</h1>
-                <p>Memberikan tips dan trik untuk diet, kesehatan, bulking dan masih banyak lainnya.</p>
-                <div class="selengkapnya">
-                    <p>Baca Selengkapnya</p>
-                    <i class='bx bx-right-arrow-alt'></i>
+            </a>
+            <a href="{{ route('blog.category', ['category' => 'Tips and Tricks']) }}">
+                <div class="card-artikel-home">
+                    <img src="image/tips.png" alt="">
+                    <h1>Tips and Tricks</h1>
+                    <p>Memberikan tips dan trik untuk diet, kesehatan, bulking dan masih banyak lainnya.</p>
+                    <div class="selengkapnya">
+                        <p>Baca Selengkapnya</p>
+                        <i class='bx bx-right-arrow-alt'></i>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
     </section>
     <!-- Artikel Home -->
@@ -296,31 +304,21 @@
             </div>
         </div>
         <div class="owl-carousel wrapcard-artikel-home2">
-            <div class="card-artikel-home2">
-                <img src="image/surat.png" alt="">
-                <span>Kesehatan</span>
-                <p>Menjelajahi Kesehatan Holistik: Menggabungkan Obat-Obatan Konvensional dan Pendekatan Alternatif.</p>
-            </div>
-            <div class="card-artikel-home2">
-                <img src="image/obatartikel.png" alt="">
-                <span>Kesehatan</span>
-                <p>Menjelajahi Kesehatan Holistik: Menggabungkan Obat-Obatan Konvensional dan Pendekatan Alternatif.</p>
-            </div>
-            <div class="card-artikel-home2">
-                <img src="image/timbangan.png" alt="">
-                <span>Kesehatan</span>
-                <p>Menjelajahi Kesehatan Holistik: Menggabungkan Obat-Obatan Konvensional dan Pendekatan Alternatif.</p>
-            </div>
-            <div class="card-artikel-home2">
-                <img src="image/brokoli2.png" alt="">
-                <span>Kesehatan</span>
-                <p>Menjelajahi Kesehatan Holistik: Menggabungkan Obat-Obatan Konvensional dan Pendekatan Alternatif.</p>
-            </div>
-            <div class="card-artikel-home2">
-                <img src="image/obatartikel.png" alt="">
-                <span>Kesehatan</span>
-                <p>Menjelajahi Kesehatan Holistik: Menggabungkan Obat-Obatan Konvensional dan Pendekatan Alternatif.</p>
-            </div>
+            @foreach ($artikels as $artikel)
+                <a href="{{ route('artikel.detail', ['id' => $artikel->id]) }}">
+                    <div class="card-artikel-home2">
+                        <img src="{{ asset('artikel/' . $artikel->gambar) }}" alt="Gambar Artikel">
+                        <span
+                            style="background-color: 
+                            @if ($artikel->kategori == 'kesehatan') default
+                            @elseif($artikel->kategori == 'obat-obatan') #FFB45C
+                            @elseif($artikel->kategori == 'tips and tricks') #FFA67E @endif;">
+                            {{ $artikel->kategori }}
+                        </span>
+                        <p>{{ $artikel->deskripsi }}</p>
+                    </div>
+                </a>
+            @endforeach
         </div>
     </section>
     <!-- Footer -->
@@ -453,7 +451,7 @@
     });
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const header = document.querySelector('header');
         const scrollThreshold = 20; // Adjust this value based on when you want the header to become sticky
 
@@ -473,6 +471,12 @@
         // Initial call to set initial state
         updateHeaderSticky();
     });
+</script>
+<script>
+    function redirectToProfile() {
+        // Gantilah "/profile" dengan URL profil yang sesuai dengan struktur rute Anda
+        window.location.href = "/profile";
+    }
 </script>
 
 </html>

@@ -43,11 +43,11 @@
             <div class="main-gender-bmi">
                 <h1>Jenis Kelamin</h1>
                 <div class="gender-bmi">
-                    <div class="pria">
+                    <div class="pria" onclick="selectGender('pria')">
                         <img src="image/pria.png" alt="">
                         <p>Laki-Laki</p>
                     </div>
-                    <div class="wanita">
+                    <div class="wanita" onclick="selectGender('wanita')">
                         <img src="image/wanita.png" alt="">
                         <p>Perempuan</p>
                     </div>
@@ -55,25 +55,24 @@
             </div>
             <div class="usia-bmi">
                 <h1>Usia</h1>
-                <input type="number">
+                <input type="number" id="ageInput">
             </div>
             <div class="tinggi-bmi">
                 <h1>Tinggi</h1>
-                <input type="number">
+                <input type="number" id="heightInput">
             </div>
             <div class="berat-badan-bmi">
                 <h1>Berat Badan</h1>
-                <input type="number">
+                <input type="number" id="weightInput">
             </div>
+            <button onclick="calculateBMI()">Hitung BMI</button>
         </div>
     </section>
     <section class="hasil-bmi">
         <div class="main-hasil-bmi">
             <h1>Hasil</h1>
-            <div class="content-hasil-bmi">
-                <p>Normal</p>
-                <h1>20.8</h1>
-                <p>Anda Memiliki Berat Badan Yang Ideal</p>
+            <div class="content-hasil-bmi" id="resultContainer">
+                <!-- Hasil BMI akan ditampilkan di sini -->
             </div>
         </div>
     </section>
@@ -157,5 +156,64 @@
         updateHeaderSticky();
     });
 </script>
+<script>
+    function selectGender(gender) {
+        // Reset background pada semua elemen gender
+        var genderElements = document.querySelectorAll('.gender-bmi div');
+        genderElements.forEach(function (element) {
+            element.classList.remove('selected');
+        });
+
+        // Tandai background pada elemen gender yang dipilih
+        var selectedElement = document.querySelector(`.gender-bmi .${gender}`);
+        selectedElement.classList.add('selected');
+
+        // Tambahkan logika untuk menangani pemilihan jenis kelamin
+        console.log("Jenis Kelamin: " + gender);
+    }
+
+    function calculateBMI() {
+        // Ambil nilai input dari formulir
+        var age = document.getElementById('ageInput').value;
+        var height = document.getElementById('heightInput').value;
+        var weight = document.getElementById('weightInput').value;
+
+        // Lakukan validasi input (opsional)
+        if (isNaN(age) || isNaN(height) || isNaN(weight)) {
+            alert("Mohon masukkan nilai yang valid untuk usia, tinggi, dan berat badan.");
+            return;
+        }
+
+        // Hitung BMI
+        var bmiValue = (weight / Math.pow((height / 100), 2)).toFixed(1);
+
+        // Tentukan status dan keterangan berdasarkan rentang nilai BMI
+        var status = '';
+        var description = '';
+
+        if (bmiValue < 18.5) {
+            status = 'Underweight';
+            description = 'Berat badan kurang';
+        } else if (bmiValue >= 18.5 && bmiValue < 24.9) {
+            status = 'Normal';
+            description = 'Berat badan ideal';
+        } else if (bmiValue >= 25 && bmiValue < 29.9) {
+            status = 'Overweight';
+            description = 'Berat badan berlebih';
+        } else {
+            status = 'Obese';
+            description = 'Berat badan sangat berlebih';
+        }
+
+        // Tampilkan hasil di dalam elemen HTML
+        var resultContainer = document.getElementById('resultContainer');
+        resultContainer.innerHTML = `
+            <p>Status BMI: ${status}</p>
+            <h1>${bmiValue}</h1>
+            <p>${description}</p>
+        `;
+    }
+</script>
+
 
 </html>
