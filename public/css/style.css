@@ -146,7 +146,10 @@ footer ul li {
     margin: 10px;
     cursor: pointer;
 }
-
+footer a{
+ text-decoration: none;
+ color: #c2c2c2 ;
+}
 footer .sosmed i {
     font-size: 34px;
 }
@@ -189,6 +192,49 @@ button:hover:before {
     cursor: pointer;
 }
 
+/* Login */
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(90deg, #C2F396 0.2%, #E4CE7E 99.79%);
+    width: 100%;
+}
+.form-login{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f3f3f3;
+    height: auto;
+    padding: 20px;
+    border-radius: 30px;
+    width: 70%;
+    height: 70%;
+    overflow: hidden;
+}
+
+.form-login img{
+    position: absolute;
+    max-width: 1400px;
+    overflow: hidden;
+    border-radius: 30px;
+}
+
+.form-login p{
+    text-align: center;
+}
+
+.form-login a{
+    text-decoration: none;
+    color: #F3F3F3;
+    background-color: var(--palette-color3);
+    padding: 15px 30px;
+    border-radius: 30px;
+    margin-top: 50px;
+}
 
 /* ============== Homepage ============== */
 /* Main Web */
@@ -228,7 +274,6 @@ main img {
     max-width: 600px;
     margin-bottom: 20px;
 }
-
 .search form {
     display: flex;
     align-items: center;
@@ -408,8 +453,7 @@ main img {
 }
 
 .doctor-button button {
-    width: 40px;
-    height: 40px;
+    padding: 20px;
     border-radius: 50%;
     cursor: pointer;
     border: none;
@@ -418,6 +462,11 @@ main img {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.doctor-button button:hover {
+    background-color: #f3f3f3;
+    color: black    ;
 }
 
 .manual-prev {
@@ -703,6 +752,8 @@ main img {
     text-align: center;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    text-decoration: none;
+    color: black;
 }
 
 .fitur .menu-fitur .card-fitur:hover {
@@ -748,6 +799,8 @@ main img {
     border-radius: 30px;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    text-decoration: none;
+    color: black;
 }
 
 .artikel-home .wrapcard-artikel-home .card-artikel-home:hover {
@@ -812,6 +865,8 @@ main img {
     flex-direction: column;
     background-color: #f3f3f3;
     max-width: 420px;
+    max-height: 350px;
+    overflow-y: hidden;
     padding: 20px 20px 50px 20px;
     border-radius: 30px;
     transition: background-color 0.3s ease-in-out;
@@ -833,7 +888,6 @@ main img {
     transform: translate(-50%, -50%);
     transition: width 0.3s ease-in-out, height 0.9s ease-in-out;
     z-index: -1;
-    /* Tambahkan z-index agar berada di belakang card */
 }
 
 .artikel-home2 .wrapcard-artikel-home2 .card-artikel-home2:hover::before {
@@ -861,6 +915,7 @@ main img {
 .artikel-home2 .wrapcard-artikel-home2 .card-artikel-home2 p {
     max-width: 330px;
     margin-top: 10px;
+    overflow-y: hidden;
 }
 
 .main-artikel-home2-text {
@@ -876,8 +931,7 @@ main img {
 }
 
 .button-artikel-home2 button {
-    width: 40px;
-    height: 40px;
+    padding: 20px;
     border-radius: 50%;
     cursor: pointer;
     border: none;
@@ -886,6 +940,11 @@ main img {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.button-artikel-home2 button:hover{
+    background-color: #F3F3F3;
+    color: black;
 }
 
 .manual-prev2 {
@@ -908,7 +967,7 @@ main img {
     justify-content: space-between;
 }
 
-.search form {
+.search-blog form {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1141,13 +1200,13 @@ main img {
     flex-direction: column;
     margin: 0 100px 0 100px;
     justify-content: center;
-    align-items: start;
+    align-items: center;
 }
 
 .detail-blog img {
     border-radius: 30px;
     height: auto;
-    width: 100%;
+    width: 50%;
 }
 
 .text-detail-blog {
@@ -1203,6 +1262,8 @@ main img {
     background-color: #F3F3F3;
     padding: 40px;
     cursor: pointer;
+    text-decoration: none;
+    color: black;
 }
 
 .card-cek-kesehatan img {
@@ -1289,6 +1350,7 @@ main img {
     display: flex;
     flex-direction: column;
     margin-left: 100px;
+    min-height: 60vh;
 }
 
 .rs-terdekat h1 {
@@ -1315,7 +1377,8 @@ main img {
     padding: 20px;
     border-radius: 30px;
     background-color: #F3F3F3;
-    width: max-content;
+    max-width: 800px;
+    width: 100%;
     margin-top: 20px;
 }
 
@@ -1354,6 +1417,8 @@ main img {
 .profile-picture {
     display: flex;
     position: relative;
+    border: 5   px solid #f3f3f3;
+    border-radius: 50%;
 }
 
 .profile-picture img {
@@ -1362,7 +1427,7 @@ main img {
     height: 250px;
 }
 
-.profile-picture a {
+.profile-picture label{
     padding: 20px;
     background-color: var(--palette-color3);
     width: fit-content;
@@ -1464,6 +1529,8 @@ main img {
 .riwayat {
     margin-left: 100px;
     margin-right: 100px;
+    height: auto;
+    min-height: 60vh;
 }
 
 .riwayat h1 {
@@ -1480,7 +1547,9 @@ main img {
     /* Adjust the gap value based on your design */
     width: 100%;
     margin-top: 20px;
+    position: relative;
 }
+
 
 .card-riwayat {
     background-color: #F3F3F3;
@@ -1492,6 +1561,11 @@ main img {
     width: 100%;
     padding: 20px;
     border-radius: 30px;
+    color: black;
+}
+
+.card-riwayat a{
+    text-decoration: none;
 }
 
 .card-riwayat img {
@@ -1528,9 +1602,7 @@ main img {
 /* ============== Booking Detail ============== */
 .item-tanggal .select-tanggal.selected {
     background-color: var(--palette-color3);
-    /* Ganti dengan warna yang diinginkan */
     color: #fff;
-    /* Ganti dengan warna teks yang sesuai */
 }
 
 .booking-detail {
@@ -1654,21 +1726,6 @@ main img {
     background-color: var(--palette-color3);
     color: #F3F3F3;
     overflow: hidden;
-}
-
-.booking-detail button::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 100%;
-    background: linear-gradient(90deg, transparent 0%, rgba(255, 0, 0, 0.2) 50%, transparent 100%);
-    transition: width 0.3s ease;
-}
-
-.booking-detail button:hover::before {
-    width: 100%;
 }
 
 /* ============== BMI ============== */
@@ -1920,7 +1977,6 @@ main img {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* Align items to the right */
     height: auto;
 }
 

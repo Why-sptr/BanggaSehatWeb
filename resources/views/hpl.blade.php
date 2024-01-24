@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Selamat datang di situs kami! Temukan informasi terbaru, layanan kami, dan banyak lagi.">
+        <link rel="icon" href="{{ asset('image/icon.png') }}" type="image/x-icon">
     <title>Cek HPL</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/responsivemobile.css') }}">
@@ -26,10 +29,22 @@
             <li><a href="/cek-kesehatan" class="active">Cek Kesehatan</a></li>
             <li><a href="/booking-dokter">Booking Dokter</a></li>
             <li><a href="/rs-terdekat">RS Terdekat</a></li>
+            <li>
+                @if (isset($user))
+                    <a href="{{ route('riwayat', ['userId' => Crypt::encryptString($user->id)]) }}">Lihat Riwayat</a>
+                @else
+                @endif
+            </li>
         </ul>
 
         <div class="main-navbar">
-            <a href="#">Login</a>
+            @auth
+                <div class="user-profile" onclick="redirectToProfile()">
+                    <img src="{{ Auth::user()->profile_picture }}" alt="Profile Picture" style="border: 5px solid #f3f3f3">
+                </div>
+            @else
+                <a href="/login">Login</a>
+            @endauth
             <div class='bx bx-menu' id="menu-icon"></div>
         </div>
     </header>
@@ -42,16 +57,15 @@
         <div class="cek-bmi">
             <div class="usia-bmi">
                 <h1>Hari Pertama Siklus Menstruasi Terakhir</h1>
-                <input type="date" id="firstDay">
+                <input type="date" id="firstDay" placeholder="Masukkan hari pertama siklus menstruasi terakhir anda">
             </div>
             <div class="tinggi-bmi">
                 <h1>Siklus Durasi Haid (dalam hari)</h1>
-                <input type="number" id="cycleDuration">
+                <input type="number" id="cycleDuration" placeholder="Masukkan silus durasi haid anda">
             </div>
         </div>
         <button onclick="calculateHPL()">Cek Hasil</button>
     </section>
-
     <section class="hasil-bmi">
         <div class="main-hasil-bmi">
             <h1>Hasil</h1>
@@ -59,7 +73,7 @@
                 <!-- Hasil HPL dan usia kehamilan akan ditampilkan di sini -->
             </div>
         </div>
-    </section>    
+    </section>
     <!-- Footer -->
     <footer>
         <div class="logo">
@@ -75,21 +89,41 @@
         <div class="menu">
             <ul>
                 <li class="title-footer">Menu</li>
-                <li>Home</li>
-                <li>Blog</li>
-                <li>Cek Kesehatan</li>
-                <li>Booking Dokter</li>
-                <li>RS Terdekat</li>
+                <a href="/homepage">
+                    <li>Home</li>
+                </a>
+                <a href="/blog">
+                    <li>Blog</li>
+                </a>
+                <a href="/cek-kesehatan">
+                    <li>Cek Kesehatan</li>
+                </a>
+                <a href="/booking-dokter">
+                    <li>Booking Dokter</li>
+                </a>
+                <a href="/rs-terdekat">
+                    <li>RS Terdekat</li>
+                </a>
             </ul>
         </div>
         <div class="artikel">
             <ul>
                 <li class="title-footer">Artikel</li>
-                <li>Kesehatan</li>
-                <li>Obat-Obatan</li>
-                <li>Tips and Tricks</li>
-                <li>Berita</li>
-                <li>Olahraga</li>
+                <a href="{{ route('blog.category', ['category' => 'kesehatan']) }}">
+                    <li>Kesehatan</li>
+                </a>
+                <a href="{{ route('blog.category', ['category' => 'obat-obatan']) }}">
+                    <li>Obat-Obatan</li>
+                </a>
+                <a href="{{ route('blog.category', ['category' => 'tips and tricks']) }}">
+                    <li>Tips and Tricks</li>
+                </a>
+                <a href="{{ route('blog.category', ['category' => 'berita']) }}">
+                    <li>Berita</li>
+                </a>
+                <a href="{{ route('blog.category', ['category' => 'olahraga']) }}">
+                    <li>Olahraga</li>
+                </a>
             </ul>
         </div>
         <div class="kontak">
@@ -110,19 +144,17 @@
         navbar.classList.toggle('open');
     }
 
-    // Close the menu when a link is clicked
     document.querySelectorAll('.navbar a').forEach(link => {
         link.onclick = () => {
             menu.classList.remove('bx-x');
             navbar.classList.remove('open');
         }
     });
-
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const header = document.querySelector('header');
-        const scrollThreshold = 20; // Adjust this value based on when you want the header to become sticky
+        const scrollThreshold = 20;
 
         function updateHeaderSticky() {
             const scrollY = window.scrollY || window.pageYOffset;
@@ -137,36 +169,46 @@
 
         window.addEventListener('scroll', updateHeaderSticky);
 
-        // Initial call to set initial state
         updateHeaderSticky();
     });
 </script>
 <script>
+    function validateInputs() {
+        var cycleDuration = document.getElementById('cycleDuration');
+
+        if (parseInt(cycleDuration.value) <= 0) {
+            cycleDuration.value = ''; 
+            cycleDuration.placeholder = 'Siklus haid tidak valid'; 
+        }
+    }
     function calculateHPL() {
-        // Ambil nilai dari input
         var firstDay = new Date(document.getElementById("firstDay").value);
         var cycleDuration = parseInt(document.getElementById("cycleDuration").value);
 
-        // Hitung HPL menggunakan rumus Naegele
         var hplDate = new Date(firstDay.getTime());
-        hplDate.setMonth(hplDate.getMonth() + 9); // Tambah 9 bulan
-        hplDate.setDate(hplDate.getDate() + (cycleDuration - 21)); // Tambah selisih (cycleDuration - 21) hari
+        hplDate.setMonth(hplDate.getMonth() + 9); 
+        hplDate.setDate(hplDate.getDate() + (cycleDuration - 21));
 
-        // Format hasil HPL menjadi "DD MMMM YYYY"
-        var options = { day: 'numeric', month: 'long', year: 'numeric' };
+        var options = {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        };
         var formattedHPL = hplDate.toLocaleDateString('id-ID', options);
 
-        // Hitung usia kehamilan
         var today = new Date();
         var pregnancyAge = Math.floor((today - firstDay) / (1000 * 60 * 60 * 24 * 7)) + 1;
 
-        // Update elemen HTML dengan hasil perhitungan
         var resultContainer = document.getElementById("resultCalorieContainer");
-        resultContainer.innerHTML = ""; // Membersihkan isi sebelumnya
+        resultContainer.innerHTML = ""; 
         resultContainer.innerHTML += "<p>HPL :</p>";
         resultContainer.innerHTML += "<h1>" + formattedHPL + "</h1>";
         resultContainer.innerHTML += "<p>Usia Kehamilan " + pregnancyAge + " Minggu</p>";
     }
 </script>
-
+<script>
+    function redirectToProfile() {
+        window.location.href = "/profile";
+    }
+</script>
 </html>

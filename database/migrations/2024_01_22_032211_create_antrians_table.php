@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nomor_antrian')->nullable();
             $table->string('nama_pasien')->nullable();
             $table->string('hp_pasien')->nullable();
-            $table->string('status')->nullable();
+            $table->string('status')->default('proses');
             $table->timestamps();
     
             $table->foreign('dokter_id')->references('id')->on('dokters')->onDelete('cascade');

@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Selamat datang di situs kami! Temukan informasi terbaru, layanan kami, dan banyak lagi.">
+    <link rel="icon" href="{{ asset('image/icon.png') }}" type="image/x-icon">
     <title>Antrian</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/responsivemobile.css') }}">
@@ -18,23 +21,39 @@
 
 <body>
     <!-- Navbar -->
-    <header>
-        <a href="/homepage" class="logo"><img src="image/logo web.png" alt=""></a>
+    <header class="sticky-header">
+        <a href="/homepage" class="logo"><img aria-label="Logo Bangga Sehat" src="{{ asset('image/logo web.png') }}"
+                alt="Logo Bangga Sehat"></a>
         <ul class="navbar">
-            <li><a href="/homepage" class="active">Home</a></li>
+            <li><a href="#" class="active">Home</a></li>
             <li><a href="/blog">Blog</a></li>
             <li><a href="/cek-kesehatan">Cek Kesehatan</a></li>
             <li><a href="/booking-dokter">Booking Dokter</a></li>
             <li><a href="/rs-terdekat">RS Terdekat</a></li>
+            <li>
+                @if (isset($user))
+                    <a href="{{ route('riwayat', ['userId' => Crypt::encryptString($user->id)]) }}">Lihat Riwayat</a>
+                @else
+                @endif
+            </li>
+
         </ul>
 
         <div class="main-navbar">
-            <a href="/profile">Login</a>
+            @auth
+                <div class="user-profile" onclick="redirectToProfile()">
+                    <img src="{{ asset(Auth::user()->profile_picture) }}" alt="Profile Picture"
+                        style="border: 5px solid #f3f3f3">
+                </div>
+            @else
+                <a href="/login">Login</a>
+            @endauth
             <div class='bx bx-menu' id="menu-icon"></div>
         </div>
     </header>
+    {{-- Antrian --}}
     <section class="antrian">
-        <a href="#" class="kembali">
+        <a href="{{ route('homepage') }}" class="kembali">
             <i class='bx bx-arrow-back'></i>
             <h1>Kembali</h1>
         </a>
@@ -59,14 +78,19 @@
                     <p>{{ $antrian->hp_pasien }}</p>
                 </div>
             </div>
-            <a href="{{ route('riwayat', ['userId' => auth()->user()->id]) }}"><button>Lihat Riwayat</button></a>
+            @if (isset($user))
+                <form action="{{ route('riwayat', ['userId' => Crypt::encryptString($user->id)]) }}" method="get"
+                    style="display:inline;">
+                    <button type="submit">Lihat Riwayat</button>
+                </form>
+            @else
+            @endif
         </div>
-
     </section>
     <!-- Footer -->
     <footer>
         <div class="logo">
-            <a href="/homepage" class="logo"><img src="image/logo2.png" alt=""></a>
+            <a href="/homepage" class="logo"><img src="{{ asset('image/logo2.png') }}" alt=""></a>
             <p>Jl. Imam Bonjol No.207, Pendrikan Kidul, Kec. Semarang Tengah, Kota Semarang, Jawa Tengah 50131</p>
             <div class="sosmed">
                 <i class='bx bxl-twitter'></i>
@@ -78,21 +102,41 @@
         <div class="menu">
             <ul>
                 <li class="title-footer">Menu</li>
-                <li>Home</li>
-                <li>Blog</li>
-                <li>Cek Kesehatan</li>
-                <li>Booking Dokter</li>
-                <li>RS Terdekat</li>
+                <a href="/homepage">
+                    <li>Home</li>
+                </a>
+                <a href="/blog">
+                    <li>Blog</li>
+                </a>
+                <a href="/cek-kesehatan">
+                    <li>Cek Kesehatan</li>
+                </a>
+                <a href="/booking-dokter">
+                    <li>Booking Dokter</li>
+                </a>
+                <a href="/rs-terdekat">
+                    <li>RS Terdekat</li>
+                </a>
             </ul>
         </div>
         <div class="artikel">
             <ul>
                 <li class="title-footer">Artikel</li>
-                <li>Kesehatan</li>
-                <li>Obat-Obatan</li>
-                <li>Tips and Tricks</li>
-                <li>Berita</li>
-                <li>Olahraga</li>
+                <a href="{{ route('blog.category', ['category' => 'kesehatan']) }}">
+                    <li>Kesehatan</li>
+                </a>
+                <a href="{{ route('blog.category', ['category' => 'obat-obatan']) }}">
+                    <li>Obat-Obatan</li>
+                </a>
+                <a href="{{ route('blog.category', ['category' => 'tips and tricks']) }}">
+                    <li>Tips and Tricks</li>
+                </a>
+                <a href="{{ route('blog.category', ['category' => 'berita']) }}">
+                    <li>Berita</li>
+                </a>
+                <a href="{{ route('blog.category', ['category' => 'olahraga']) }}">
+                    <li>Olahraga</li>
+                </a>
             </ul>
         </div>
         <div class="kontak">
@@ -113,7 +157,6 @@
         navbar.classList.toggle('open');
     }
 
-    // Close the menu when a link is clicked
     document.querySelectorAll('.navbar a').forEach(link => {
         link.onclick = () => {
             menu.classList.remove('bx-x');
@@ -124,7 +167,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const header = document.querySelector('header');
-        const scrollThreshold = 20; // Adjust this value based on when you want the header to become sticky
+        const scrollThreshold = 20;
 
         function updateHeaderSticky() {
             const scrollY = window.scrollY || window.pageYOffset;
@@ -139,9 +182,13 @@
 
         window.addEventListener('scroll', updateHeaderSticky);
 
-        // Initial call to set initial state
         updateHeaderSticky();
     });
+</script>
+<script>
+    function redirectToProfile() {
+        window.location.href = "/profile";
+    }
 </script>
 
 </html>

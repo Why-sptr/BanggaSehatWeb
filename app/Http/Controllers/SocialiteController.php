@@ -26,12 +26,12 @@ class SocialiteController extends Controller
             Auth::login($finduser);
         } else {
             $newuser = User::create([
-                'first_name' => $user->user['given_name'] ?? null, // Mendapatkan nama pertama dari Socialite (Google)
-                'last_name' => $user->user['family_name'] ?? null, // Mendapatkan nama terakhir dari Socialite (Google)
+                'first_name' => $user->user['given_name'] ?? null,
+                'last_name' => $user->user['family_name'] ?? null,
                 'email' => $user->getEmail(),
                 'google_id' => $user->getId(),
                 'password' => bcrypt('1234242'),
-                'profile_picture' => $user->getAvatar(), // Ambil URL gambar profil dari Socialite
+                'profile_picture' => $user->getAvatar(),
             ]);
 
             Auth::login($newuser);
@@ -43,25 +43,33 @@ class SocialiteController extends Controller
 
     public function update(Request $request)
     {
-        // Validasi input jika diperlukan
         $request->validate([
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'usia' => 'numeric',
-            'phone' => 'string',
+            'nomor' => 'required|string',
             'email' => 'required|email',
+            'profile_picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // Perbarui data profil pengguna
-        Auth::user()->update([
+        $user = Auth::user();
+        $user->update([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
             'usia' => $request->input('usia'),
-            'phone' => $request->input('phone'),
+            'nomor' => $request->input('nomor'),
             'email' => $request->input('email'),
         ]);
 
-        // Redirect atau berikan respons sesuai kebutuhan
+        if ($request->hasFile('profile_picture')) {
+            $profilePicture = $request->file('profile_picture');
+
+            $fileName = time() . '_' . $profilePicture->getClientOriginalName();
+            $profilePicture->storeAs('public/profile_pictures', $fileName);
+
+            $user->update(['profile_picture' => 'storage/profile_pictures/' . $fileName]);
+        }
+
         return redirect()->back()->with('success', 'Profil berhasil diperbarui');
     }
 
@@ -69,7 +77,6 @@ class SocialiteController extends Controller
     {
         Auth::logout();
 
-        // Redirect to wherever you want after logout
-        return redirect('/homepage'); // Change this to your desired URL
+        return redirect('/homepage');
     }
 }

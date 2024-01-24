@@ -5,16 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Artikel;
 use App\Models\Dokter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomepageController extends Controller
 {
+    
     public function index()
-    {
-        $artikels = Artikel::limit(10)->get();
-        $dokters = Dokter::limit(10)->get();
+{
+    $artikels = Artikel::limit(10)->get();
+    $dokters = Dokter::limit(10)->get();
 
-        return view('homepage', compact('artikels','dokters'));
-    }
+    $userId = Auth::id();
+
+    return view('homepage', compact('artikels', 'dokters', 'userId'));
+}
 
     public function showByCategory($category)
     {

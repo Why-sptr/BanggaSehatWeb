@@ -11,13 +11,14 @@ class DokterController extends Controller
 {
     public function index()
     {
-        $userId = Auth::id(); // Get the ID of the authenticated user
-    
+        $userId = Auth::id();
+
         $dokters = Dokter::all();
         $dokterUmums = Dokter::where('spesialis', 'Dokter Umum')->get();
         $dokterGigis = Dokter::where('spesialis', 'Dokter Gigi')->get();
+        $dokterBedahs = Dokter::where('spesialis', 'Dokter Bedah')->get();
     
-        return view('booking-dokter', compact('dokters', 'dokterUmums', 'dokterGigis', 'userId'));
+        return view('booking-dokter', compact('dokters', 'dokterUmums', 'dokterGigis','dokterBedahs', 'userId'));
     }
 
     public function show($id)
@@ -46,7 +47,6 @@ class DokterController extends Controller
 
         $data = $request->all();
 
-        // Mengelola upload gambar
         if ($request->hasFile('picture')) {
             $image = $request->file('picture');
             $imageName = time() . '.' . $image->getClientOriginalExtension();

@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Selamat datang di situs kami! Temukan informasi terbaru, layanan kami, dan banyak lagi.">
+        <link rel="icon" href="{{ asset('image/icon.png') }}" type="image/x-icon">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Booking Dokter</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
@@ -27,10 +30,23 @@
             <li><a href="/cek-kesehatan">Cek Kesehatan</a></li>
             <li><a href="/booking-dokter" class="active">Booking Dokter</a></li>
             <li><a href="/rs-terdekat">RS Terdekat</a></li>
+            <li>
+                @if (isset($user))
+                    <a href="{{ route('riwayat', ['userId' => Crypt::encryptString($user->id)]) }}">Lihat Riwayat</a>
+                @else
+                @endif
+            </li>
+
         </ul>
 
         <div class="main-navbar">
-            <a href="#">Login</a>
+            @auth
+                <div class="user-profile" onclick="redirectToProfile()">
+                    <img src="{{ Auth::user()->profile_picture }}" alt="Profile Picture" style="border: 5px solid #f3f3f3">
+                </div>
+            @else
+                <a href="/login">Login</a>
+            @endauth
             <div class='bx bx-menu' id="menu-icon"></div>
         </div>
     </header>
@@ -38,9 +54,7 @@
         <div class="tanggal">
             <div class="main-tanggal">
                 <h1>Tanggal</h1>
-                <button onclick="changeMonth('prev')">Previous Month</button>
                 <p id="currentMonth"></p>
-                <button onclick="changeMonth('next')">Next Month</button>
             </div>
             <div class="item-tanggal" id="tanggalContainer"></div>
         </div>
@@ -82,6 +96,7 @@
         </div>
         <button>Booking Sekarang</button>
     </section>
+    <!-- Footer -->
     <footer>
         <div class="logo">
             <a href="/homepage" class="logo"><img src="image/logo2.png" alt=""></a>
@@ -96,21 +111,41 @@
         <div class="menu">
             <ul>
                 <li class="title-footer">Menu</li>
-                <li>Home</li>
-                <li>Blog</li>
-                <li>Cek Kesehatan</li>
-                <li>Booking Dokter</li>
-                <li>RS Terdekat</li>
+                <a href="/homepage">
+                    <li>Home</li>
+                </a>
+                <a href="/blog">
+                    <li>Blog</li>
+                </a>
+                <a href="/cek-kesehatan">
+                    <li>Cek Kesehatan</li>
+                </a>
+                <a href="/booking-dokter">
+                    <li>Booking Dokter</li>
+                </a>
+                <a href="/rs-terdekat">
+                    <li>RS Terdekat</li>
+                </a>
             </ul>
         </div>
         <div class="artikel">
             <ul>
                 <li class="title-footer">Artikel</li>
-                <li>Kesehatan</li>
-                <li>Obat-Obatan</li>
-                <li>Tips and Tricks</li>
-                <li>Berita</li>
-                <li>Olahraga</li>
+                <a href="{{ route('blog.category', ['category' => 'kesehatan']) }}">
+                    <li>Kesehatan</li>
+                </a>
+                <a href="{{ route('blog.category', ['category' => 'obat-obatan']) }}">
+                    <li>Obat-Obatan</li>
+                </a>
+                <a href="{{ route('blog.category', ['category' => 'tips and tricks']) }}">
+                    <li>Tips and Tricks</li>
+                </a>
+                <a href="{{ route('blog.category', ['category' => 'berita']) }}">
+                    <li>Berita</li>
+                </a>
+                <a href="{{ route('blog.category', ['category' => 'olahraga']) }}">
+                    <li>Olahraga</li>
+                </a>
             </ul>
         </div>
         <div class="kontak">
@@ -125,25 +160,21 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
     function changeColor(element) {
-        // Hapus kelas "selected" dari semua elemen dengan kelas "select-tanggal"
         var allElements = document.querySelectorAll('.select-tanggal');
         allElements.forEach(function(el) {
             el.classList.remove('selected');
         });
 
-        // Tambahkan kelas "selected" ke elemen yang dipilih
         element.classList.add('selected');
     }
 </script>
 <script>
     function changeColor(element) {
-        // Hapus kelas "selected" dari semua elemen dengan kelas "select-jam"
         var allElements = document.querySelectorAll('.select-jam');
         allElements.forEach(function(el) {
             el.classList.remove('selected');
         });
 
-        // Tambahkan kelas "selected" ke elemen yang dipilih
         element.classList.add('selected');
     }
 </script>
@@ -158,7 +189,6 @@
         navbar.classList.toggle('open');
     }
 
-    // Close the menu when a link is clicked
     document.querySelectorAll('.navbar a').forEach(link => {
         link.onclick = () => {
             menu.classList.remove('bx-x');
@@ -169,7 +199,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const header = document.querySelector('header');
-        const scrollThreshold = 20; // Adjust this value based on when you want the header to become sticky
+        const scrollThreshold = 20;
 
         function updateHeaderSticky() {
             const scrollY = window.scrollY || window.pageYOffset;
@@ -184,57 +214,53 @@
 
         window.addEventListener('scroll', updateHeaderSticky);
 
-        // Initial call to set initial state
         updateHeaderSticky();
     });
 </script>
 {{-- Booking --}}
 <script>
-    var selectedDate; // Define a variable to store the selected date globally
+    var selectedDate; 
 
     function getCSRFToken() {
         return $('meta[name="csrf-token"]').attr('content');
     }
 
-    function updateTanggal(year, month, startDay) {
+    function updateTanggal(year, month) {
         var tanggalContainer = $("#tanggalContainer");
         tanggalContainer.html("");
 
         var today = new Date();
-        var currentYear = today.getFullYear();
-        var currentMonth = today.getMonth();
         var currentDate = today.getDate();
+        var currentDay = today.getDay(); 
 
-        var lastDay = new Date(year, month + 1, 0).getDate();
-        var hari = ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Ming"];
+        var firstDayOfMonth = new Date(year, month, 1);
+        var startingDay = firstDayOfMonth.getDay();
 
-        for (var i = 0; i < 7; i++) {
-            var dayIndex = (startDay + i) % 7;
-            var date = currentDate - startDay + i;
-            if (date < 1) {
-                date = lastDay + date;
-            }
+        var hari = ["Ming", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
+
+        for (var i = currentDay; i < currentDay + 7; i++) {
+            var dayIndex = i % 7;
+            var date = currentDate + (i - currentDay);
 
             var option = $("<div>").addClass("select-tanggal");
 
-            option.html("<p>" + hari[dayIndex] + "</p><p>" + date + "</p>");
+            if (date < 1 || date > new Date(year, month + 1, 0).getDate()) {
+                option.html("<p></p><p></p>"); 
+            } else {
+                option.html("<p>" + hari[dayIndex] + "</p><p>" + date + "</p>");
 
-            if (currentYear === year && currentMonth === month && date === currentDate) {
-                option.addClass('current-day');
+                if (today.getFullYear() === year && today.getMonth() === month && date === currentDate) {
+                    option.addClass('current-day');
+                }
+
+                option.click(function() {
+                    var clickedDate = $(this).find("p:last-child").text();
+                    selectedDate = year + '-' + (month + 1).toString().padStart(2, '0') + '-' + clickedDate
+                        .toString().padStart(2, '0');
+                    console.log("Date selected:", selectedDate);
+                    changeColor($(this));
+                });
             }
-
-            option.click(function() {
-                var clickedDate = $(this).find("p:last-child").text();
-
-                selectedDate = year + '-' + (month + 1).toString().padStart(2, '0') + '-' + clickedDate
-                    .toString().padStart(2, '0');
-
-                console.log("Date selected:", selectedDate);
-
-                changeColor($(this));
-            });
-
-
 
             tanggalContainer.append(option);
         }
@@ -261,8 +287,7 @@
         var currentMonth = today.getMonth();
         var currentDate = today.getDate();
 
-        var startDay = (today.getDay() - 1 + 7) % 7; // Adjusting day index to start from Monday
-
+        var startDay = (today.getDay() - 1 + 7) % 7;
         if (direction === 'next') {
             currentDate += 7;
             if (currentDate > new Date(currentYear, currentMonth + 1, 0).getDate()) {
@@ -353,6 +378,10 @@
         updateTanggal(new Date().getFullYear(), new Date().getMonth(), (new Date().getDay() - 1 + 7) % 7);
     });
 </script>
-
+<script>
+    function redirectToProfile() {
+        window.location.href = "/profile";
+    }
+</script>
 
 </html>

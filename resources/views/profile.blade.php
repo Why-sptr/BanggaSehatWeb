@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Selamat datang di situs kami! Temukan informasi terbaru, layanan kami, dan banyak lagi.">
+        <link rel="icon" href="{{ asset('image/icon.png') }}" type="image/x-icon">
     <title>Edit Profile</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/responsivemobile.css') }}">
@@ -26,19 +29,35 @@
             <li><a href="/cek-kesehatan">Cek Kesehatan</a></li>
             <li><a href="/booking-dokter">Booking Dokter</a></li>
             <li><a href="/rs-terdekat">RS Terdekat</a></li>
+            <li>
+                @if (isset($user))
+                    <a href="{{ route('riwayat', ['userId' => Crypt::encryptString($user->id)]) }}">Lihat Riwayat</a>
+                @else
+                @endif
+            </li>
+
         </ul>
 
         <div class="main-navbar">
-            <a href="#">Login</a>
+            @auth
+                <div class="user-profile" onclick="redirectToProfile()">
+                    <img src="{{ Auth::user()->profile_picture }}" alt="Profile Picture" style="border: 5px solid #f3f3f3">
+                </div>
+            @else
+                <a href="/login">Login</a>
+            @endauth
             <div class='bx bx-menu' id="menu-icon"></div>
         </div>
     </header>
-    <form action="{{ route('profile.update') }}" class="edit-profile">
+    <form action="{{ route('profile.update') }}" method="POST" class="edit-profile" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="profile-picture">
-            <img src="{{ Auth::user()->profile_picture }}" alt="Profile Picture">
-            <a href="#"><i class='bx bx-plus'></i></a>
+            <img id="preview-image" src="{{ Auth::user()->profile_picture }}" alt="Profile Picture" style="border: solid 5px #F3F3F3">
+            <label id="upload-profile-label" style="cursor: pointer;">
+                <i class='bx bx-plus'></i>
+                <input type="file" name="profile_picture" id="profile_picture" style="display: none" accept="image/*">
+            </label>
         </div>
         <div class="data-profile">
             <div class="name">
@@ -57,7 +76,7 @@
             </div>
             <div class="phone">
                 <p>Nomor</p>
-                <input type="text" name="phone" value="{{ Auth::user()->phone }}">
+                <input type="text" name="nomor" value="{{ Auth::user()->nomor }}">
             </div>
             <div class="email">
                 <p>Email</p>
@@ -67,9 +86,9 @@
         <div class="tombol-profile">
             <button type="submit">Simpan Profile</button>
             @if (auth()->check())
-            <button>
-                <a href="{{ route('logout') }}">Keluar</a>
-            </button>
+                <button>
+                    <a href="{{ route('logout') }}">Keluar</a>
+                </button>
             @else
             @endif
         </div>
@@ -85,7 +104,6 @@
         navbar.classList.toggle('open');
     }
 
-    // Close the menu when a link is clicked
     document.querySelectorAll('.navbar a').forEach(link => {
         link.onclick = () => {
             menu.classList.remove('bx-x');
@@ -96,7 +114,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const header = document.querySelector('header');
-        const scrollThreshold = 20; // Adjust this value based on when you want the header to become sticky
+        const scrollThreshold = 20; 
 
         function updateHeaderSticky() {
             const scrollY = window.scrollY || window.pageYOffset;
@@ -111,8 +129,38 @@
 
         window.addEventListener('scroll', updateHeaderSticky);
 
-        // Initial call to set initial state
         updateHeaderSticky();
+    });
+</script>
+<script>
+    function redirectToProfile() {
+        window.location.href = "/profile";
+    }
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#upload-profile-label').click(function() {
+            $('#profile_picture').click();
+        });
+
+        $('#profile_picture').change(function() {
+            var fileName = $(this).val().split("\\").pop();
+
+            readURL(this);
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#preview-image').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
     });
 </script>
 

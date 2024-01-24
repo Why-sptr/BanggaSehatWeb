@@ -5,40 +5,35 @@ namespace App\Http\Controllers;
 use App\Models\Antrian;
 use App\Models\Dokter;
 use App\Models\User;
+use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 class AntrianController extends Controller
 {
     public function showBookingDetail($id)
     {
-        // Dapatkan informasi dokter berdasarkan $id
         $dokter = Dokter::find($id);
 
-        // Lakukan pengecekan apakah dokter ditemukan
         if (!$dokter) {
-            // Tampilkan pesan error atau redirect ke halaman tertentu jika dokter tidak ditemukan
             return redirect()->route('halaman-error')->with('error', 'Dokter tidak ditemukan');
         }
 
-        // Pass informasi dokter ke halaman booking detail
         return view('booking-detail', compact('dokter'));
     }
 
     public function bookDokter(Request $request, $dokterId, $userId, $tanggal, $jam)
     {
-        // Cek ketersediaan jam
         $bookedCount = Antrian::where('dokter_id', $dokterId)
             ->where('tanggal', $tanggal)
             ->where('jam', $jam)
             ->count();
 
-        // Ganti 5 dengan jumlah maksimal booking per jam
         if ($bookedCount >= 5) {
             return response()->json(['message' => 'Jam sudah penuh'], 400);
         }
 
-        // Lakukan booking
         $antrian = new Antrian();
         $antrian->dokter_id = $dokterId;
         $antrian->user_id = $userId;
@@ -57,16 +52,38 @@ class AntrianController extends Controller
 
     public function antrianDetail($antrianId)
     {
-        $antrian = Antrian::findOrFail($antrianId);
+        try {
+            $antrian = Antrian::findOrFail($antrianId);
 
-        return view('antrian', compact('antrian'));
+            $userId = Auth::id();
+
+            return view('antrian', compact('antrian', 'userId'));
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            abort(404);
+        }
     }
 
-    public function showRiwayat($userId)
+    public function showRiwayat($userId, Request $request)
     {
-        $user = User::findOrFail($userId);
-        $queueHistory = $user->antrians()->with('dokter')->orderBy('tanggal', 'desc')->get();
+        try {
+            $userId = Crypt::decryptString($userId);
+        } catch (DecryptException $e) {
+            abort(404);
+        }
 
-        return view('riwayat', ['user' => $user, 'queueHistory' => $queueHistory]);
+        $user = User::findOrFail($userId);
+        $searchQuery = $request->input('search');
+
+        $queueHistory = $user->antrians()
+            ->when($searchQuery, function ($query) use ($searchQuery) {
+                $query->whereHas('dokter', function ($subquery) use ($searchQuery) {
+                    $subquery->where('name', 'like', '%' . $searchQuery . '%');
+                });
+            })
+            ->with('dokter')
+            ->orderBy('tanggal', 'desc')
+            ->get();
+
+        return view('riwayat', ['user' => $user, 'queueHistory' => $queueHistory, 'searchQuery' => $searchQuery]);
     }
 }

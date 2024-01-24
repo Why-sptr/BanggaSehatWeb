@@ -19,11 +19,9 @@ class StressTestController extends Controller
             if (strpos($key, 'question_') === 0) {
                 $questionId = substr($key, strlen('question_'));
                 $answer = $value;
-                // Simpan jawaban ke dalam database
             }
         }
 
-        // Hitung tingkat stres berdasarkan jawaban
         $stressLevel = $this->calculateStressLevel($request->all());
 
         return view('hasil-stress', compact('stressLevel'));

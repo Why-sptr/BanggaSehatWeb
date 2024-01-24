@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Selamat datang di situs kami! Temukan informasi terbaru, layanan kami, dan banyak lagi.">
+    <link rel="icon" href="{{ asset('image/icon.png') }}" type="image/x-icon">
     <title>Homepage</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/responsivemobile.css') }}">
@@ -30,31 +33,28 @@
 <body>
     <!-- Navbar -->
     <header class="sticky-header">
-        <a href="/homepage" class="logo"><img src="image/logo web.png" alt=""></a>
+        <a href="/homepage" class="logo"><img aria-label="Logo Bangga Sehat" src="image/logo web.png"
+                alt="Logo Bangga Sehat"></a>
         <ul class="navbar">
             <li><a href="#" class="active">Home</a></li>
             <li><a href="/blog">Blog</a></li>
             <li><a href="/cek-kesehatan">Cek Kesehatan</a></li>
             <li><a href="/booking-dokter">Booking Dokter</a></li>
             <li><a href="/rs-terdekat">RS Terdekat</a></li>
-            @if (auth()->check())
-                <!-- Pengguna sudah login -->
-                <li><a href="{{ route('riwayat', ['userId' => auth()->user()->id]) }}">Lihat Riwayat</a></li>
-            @else
-                <!-- Pengguna belum login -->
-                <!-- Tambahkan logika atau tombol lain sesuai kebutuhan -->
-            @endif
-
+            <li>
+                @if (isset($user))
+                    <a href="{{ route('riwayat', ['userId' => Crypt::encryptString($user->id)]) }}">Lihat Riwayat</a>
+                @else
+                @endif
+            </li>
         </ul>
 
         <div class="main-navbar">
             @auth
-                <!-- Jika pengguna sudah login -->
                 <div class="user-profile" onclick="redirectToProfile()">
-                    <img src="{{ Auth::user()->profile_picture }}" alt="Profile Picture">
+                    <img src="{{ Auth::user()->profile_picture }}" alt="Profile Picture" style="border: 5px solid #f3f3f3">
                 </div>
             @else
-                <!-- Jika pengguna belum login -->
                 <a href="/login">Login</a>
             @endauth
             <div class='bx bx-menu' id="menu-icon"></div>
@@ -64,15 +64,20 @@
     <!-- Main Web -->
     <main>
         <div class="greeting">
-            <h2>Welcome, User</h2>
+            @if (auth()->check())
+                <h2>Welcome, {{ Auth::user()->first_name }}</h2>
+            @endif
+
             <h1>Selamat datang di Bangga Sehat! Bersama-sama Menuju Gaya Hidup Sehat!</h1>
             <p>Konsultasikan gejala anda dengan mudah dan temukan tips and trick kesehatan yang bermanfaat lainnya</p>
             <div class="search">
-                <input type="text" placeholder="Ketuk disini untuk mencari">
-                <button>Cari</button>
+                <form action="{{ route('blog.search') }}" method="GET">
+                    <input type="text" name="search" placeholder="Ketuk disini untuk mencari">
+                    <button type="submit">Cari</button>
+                </form>
             </div>
         </div>
-        <img src="image/klinik.png" alt="">
+        <img src="image/klinik.png" alt="" loading="lazy">
     </main>
     <!-- Step Booking -->
     <section class="hero1">
@@ -130,26 +135,30 @@
                 <h1>Konsultasikan Secara Cepat Dengan Dokter Terekomendasi</h1>
             </div>
             <div class="doctor-button">
-                <!-- Manual Next and Prev Buttons -->
-                <button class="manual-prev"><i class='bx bx-chevron-left'></i></button>
-                <button class="manual-next"><i class='bx bx-chevron-right'></i></button>
+                <button aria-label="Klik untuk sebelumnya" class="manual-prev"><i
+                        class='bx bx-chevron-left'></i></button>
+                <button aria-label="Klik untuk selanjutnya" class="manual-next"><i
+                        class='bx bx-chevron-right'></i></button>
             </div>
         </div>
         <div class="owl-carousel head-card">
             @foreach ($dokters as $dokter)
-                <div class="card-doctor">
-                    <img src="{{ asset($dokter->picture) }}" alt="Gambar Dokter">
-                    <span>{{ $dokter->spesialis }}</span>
-                    <p>{{ $dokter->name }}</p>
-                </div>
+                <!-- Individual doctor card -->
+                <a href="{{ route('booking-detail', ['id' => $dokter->id, 'user_id' => $userId]) }}">
+                    <div class="card-doctor">
+                        <img src="{{ asset($dokter->picture) }}" alt="Gambar Dokter">
+                        <span>{{ $dokter->spesialis }}</span>
+                        <p>{{ $dokter->name }}</p>
+                    </div>
+                </a>
             @endforeach
         </div>
     </section>
     <!-- Hero 1 -->
     <section class="hero-content1">
         <div class="image-hero1">
-            <img src="image/klinik 2.png" class="hero-content1-img" alt="">
-            <img src="image/klinik 3.png" class="hero-content1-img2" alt="">
+            <img src="image/klinik 2.png" class="hero-content1-img" alt="" loading="lazy">
+            <img src="image/klinik 3.png" class="hero-content1-img2" alt="" loading="lazy">
         </div>
         <div class="content1-hero">
             <div class="hero-title">
@@ -195,10 +204,10 @@
                 </div>
             </div>
             <div class="image-hero2">
-                <img src="image/health1.png" class="hero-content3-img" alt="">
-                <img src="image/health2.png" class="hero-content3-img" alt="">
-                <img src="image/health3.png" class="hero-content3-img" alt="">
-                <img src="image/health4.png" class="hero-content3-img" alt="">
+                <img src="image/health1.png" class="hero-content3-img" alt="" loading="lazy">
+                <img src="image/health2.png" class="hero-content3-img" alt="" loading="lazy">
+                <img src="image/health3.png" class="hero-content3-img" alt="" loading="lazy">
+                <img src="image/health4.png" class="hero-content3-img" alt="" loading="lazy">
             </div>
         </div>
     </section>
@@ -298,9 +307,10 @@
                 <h1>Rekomendasi Artikel</h1>
             </div>
             <div class="button-artikel-home2">
-                <!-- Manual Next and Prev Buttons -->
-                <button class="manual-prev2"><i class='bx bx-chevron-left'></i></button>
-                <button class="manual-next2"><i class='bx bx-chevron-right'></i></button>
+                <button aria-label="Klik untuk sebelumnya" class="manual-prev2"><i
+                        class='bx bx-chevron-left'></i></button>
+                <button aria-label="Klik untuk selanjutnya" class="manual-next2"><i
+                        class='bx bx-chevron-right'></i></button>
             </div>
         </div>
         <div class="owl-carousel wrapcard-artikel-home2">
@@ -310,9 +320,9 @@
                         <img src="{{ asset('artikel/' . $artikel->gambar) }}" alt="Gambar Artikel">
                         <span
                             style="background-color: 
-                            @if ($artikel->kategori == 'kesehatan') default
-                            @elseif($artikel->kategori == 'obat-obatan') #FFB45C
-                            @elseif($artikel->kategori == 'tips and tricks') #FFA67E @endif;">
+                            @if ($artikel->kategori == 'Kesehatan') default
+                            @elseif($artikel->kategori == 'Obat-obatan') #FFB45C
+                            @elseif($artikel->kategori == 'Tips and Tricks') #FFA67E @endif;">
                             {{ $artikel->kategori }}
                         </span>
                         <p>{{ $artikel->deskripsi }}</p>
@@ -324,7 +334,9 @@
     <!-- Footer -->
     <footer>
         <div class="logo">
-            <a href="/homepage" class="logo"><img src="image/logo2.png" alt=""></a>
+            <a href="/homepage" class="logo">
+                <img aria-label="Logo Bangga Sehat" src="{{ asset('image/logo2.png') }}" alt="Logo Bangga Sehat">
+            </a>
             <p>Jl. Imam Bonjol No.207, Pendrikan Kidul, Kec. Semarang Tengah, Kota Semarang, Jawa Tengah 50131</p>
             <div class="sosmed">
                 <i class='bx bxl-twitter'></i>
@@ -336,21 +348,21 @@
         <div class="menu">
             <ul>
                 <li class="title-footer">Menu</li>
-                <li>Home</li>
-                <li>Blog</li>
-                <li>Cek Kesehatan</li>
-                <li>Booking Dokter</li>
-                <li>RS Terdekat</li>
+                <li><a href="/homepage">Home</a></li>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="/cek-kesehatan">Cek Kesehatan</a></li>
+                <li><a href="/booking-dokter">Booking Dokter</a></li>
+                <li><a href="/rs-terdekat">RS Terdekat</a></li>
             </ul>
         </div>
         <div class="artikel">
             <ul>
                 <li class="title-footer">Artikel</li>
-                <li>Kesehatan</li>
-                <li>Obat-Obatan</li>
-                <li>Tips and Tricks</li>
-                <li>Berita</li>
-                <li>Olahraga</li>
+                <li><a href="{{ route('blog.category', ['category' => 'kesehatan']) }}">Kesehatan</a></li>
+                <li><a href="{{ route('blog.category', ['category' => 'obat-obatan']) }}">Obat-Obatan</a></li>
+                <li><a href="{{ route('blog.category', ['category' => 'tips and tricks']) }}">Tips and Tricks</a></li>
+                <li><a href="{{ route('blog.category', ['category' => 'berita']) }}">Berita</a></li>
+                <li><a href="{{ route('blog.category', ['category' => 'olahraga']) }}">Olahraga</a></li>
             </ul>
         </div>
         <div class="kontak">
@@ -361,17 +373,16 @@
             </ul>
         </div>
     </footer>
+
 </body>
-<!-- Include Owl Carousel JavaScript dari CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 <script>
     $(document).ready(function() {
-        // Inisialisasi Owl Carousel
         var owl = $(".wrapcard-artikel-home2").owlCarousel({
             items: 5,
             loop: true,
             margin: 20,
-            nav: false, // Nonaktifkan navigasi bawaan
+            nav: false,
             dots: false,
             responsive: {
                 0: {
@@ -386,12 +397,10 @@
             }
         });
 
-        // Manual Prev Button
         $(".manual-prev2").on("click", function() {
             owl.trigger("prev.owl.carousel");
         });
 
-        // Manual Next Button
         $(".manual-next2").on("click", function() {
             owl.trigger("next.owl.carousel");
         });
@@ -399,12 +408,11 @@
 </script>
 <script>
     $(document).ready(function() {
-        // Initialize Owl Carousel
         var owl = $(".owl-carousel").owlCarousel({
             items: 5,
             loop: true,
             margin: 20,
-            nav: false, // Disable default navigation
+            nav: false,
             dots: false,
             responsive: {
                 0: {
@@ -422,12 +430,10 @@
             }
         });
 
-        // Manual Prev Button
         $(".manual-prev").on("click", function() {
             owl.trigger("prev.owl.carousel");
         });
 
-        // Manual Next Button
         $(".manual-next").on("click", function() {
             owl.trigger("next.owl.carousel");
         });
@@ -442,7 +448,6 @@
         navbar.classList.toggle('open');
     }
 
-    // Close the menu when a link is clicked
     document.querySelectorAll('.navbar a').forEach(link => {
         link.onclick = () => {
             menu.classList.remove('bx-x');
@@ -453,7 +458,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const header = document.querySelector('header');
-        const scrollThreshold = 20; // Adjust this value based on when you want the header to become sticky
+        const scrollThreshold = 20;
 
         function updateHeaderSticky() {
             const scrollY = window.scrollY || window.pageYOffset;
@@ -468,13 +473,11 @@
 
         window.addEventListener('scroll', updateHeaderSticky);
 
-        // Initial call to set initial state
         updateHeaderSticky();
     });
 </script>
 <script>
     function redirectToProfile() {
-        // Gantilah "/profile" dengan URL profil yang sesuai dengan struktur rute Anda
         window.location.href = "/profile";
     }
 </script>

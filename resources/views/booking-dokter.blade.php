@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Selamat datang di situs kami! Temukan informasi terbaru, layanan kami, dan banyak lagi.">
+    <link rel="icon" href="{{ asset('image/icon.png') }}" type="image/x-icon">
     <title>Booking Dokter</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/responsivemobile.css') }}">
@@ -26,10 +29,22 @@
             <li><a href="/cek-kesehatan">Cek Kesehatan</a></li>
             <li><a href="/booking-dokter" class="active">Booking Dokter</a></li>
             <li><a href="/rs-terdekat">RS Terdekat</a></li>
+            <li>
+                @if (isset($user))
+                    <a href="{{ route('riwayat', ['userId' => Crypt::encryptString($user->id)]) }}">Lihat Riwayat</a>
+                @else
+                @endif
+            </li>
         </ul>
 
         <div class="main-navbar">
-            <a href="#">Login</a>
+            @auth
+                <div class="user-profile" onclick="redirectToProfile()">
+                    <img src="{{ Auth::user()->profile_picture }}" alt="Profile Picture" style="border: 5px solid #f3f3f3">
+                </div>
+            @else
+                <a href="/login">Login</a>
+            @endauth
             <div class='bx bx-menu' id="menu-icon"></div>
         </div>
     </header>
@@ -66,7 +81,7 @@
                 <h1>Dokter Umum</h1>
                 <div class="wrap-card-booking-dokter">
                     @foreach ($dokterUmums as $dokterUmum)
-                        <a href="{{ route('booking-detail', ['id' => $dokterGigi->id]) }}">
+                        <a href="{{ route('booking-detail', ['id' => $dokterUmum->id, 'user_id' => $userId]) }}">
                             <div class="card-booking-dokter">
                                 <img src="{{ asset($dokterUmum->picture) }}" alt="Gambar Dokter">
                                 <span>{{ $dokterUmum->spesialis }}</span>
@@ -87,11 +102,12 @@
             <div class="main-dokter">
                 <h1>Dokter Bedah</h1>
                 <div class="wrap-card-booking-dokter">
-                    <a href="{{ route('booking-detail', ['id' => $dokterGigi->id]) }}">
+                    @foreach ($dokterBedahs as $dokterBedah)
+                    <a href="{{ route('booking-detail', ['id' => $dokterBedah->id, 'user_id' => $userId]) }}">
                         <div class="card-booking-dokter">
-                            <img src="image/doktetr10.png" alt="">
-                            <span>Dokter Gigi</span>
-                            <h1>Dokter Amelia</h1>
+                            <img src="{{ asset($dokterBedah->picture) }}" alt="Gambar Dokter">
+                            <span>{{ $dokterBedah->spesialis }}</span>
+                            <h1>{{ $dokterBedah->name }}</h1>
                             <div class="rating">
                                 <i class='bx bxs-star'></i>
                                 <i class='bx bxs-star'></i>
@@ -102,51 +118,7 @@
                             <p>Rating 5 dari 5</p>
                         </div>
                     </a>
-                    <a href="{{ route('booking-detail', ['id' => $dokterGigi->id]) }}">
-                        <div class="card-booking-dokter">
-                            <img src="image/dokter11.png" alt="">
-                            <span>Dokter Gigi</span>
-                            <h1>Dokter Amelia</h1>
-                            <div class="rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                            </div>
-                            <p>Rating 5 dari 5</p>
-                        </div>
-                    </a>
-                    <a href="{{ route('booking-detail', ['id' => $dokterGigi->id]) }}">
-                        <div class="card-booking-dokter">
-                            <img src="image/dokter12.png" alt="">
-                            <span>Dokter Gigi</span>
-                            <h1>Dokter Amelia</h1>
-                            <div class="rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                            </div>
-                            <p>Rating 5 dari 5</p>
-                        </div>
-                    </a>
-                    <a href="{{ route('booking-detail', ['id' => $dokterGigi->id]) }}">
-                        <div class="card-booking-dokter">
-                            <img src="image/dokter11.png" alt="">
-                            <span>Dokter Gigi</span>
-                            <h1>Dokter Amelia</h1>
-                            <div class="rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                            </div>
-                            <p>Rating 5 dari 5</p>
-                        </div>
-                    </a>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -166,21 +138,41 @@
         <div class="menu">
             <ul>
                 <li class="title-footer">Menu</li>
-                <li>Home</li>
-                <li>Blog</li>
-                <li>Cek Kesehatan</li>
-                <li>Booking Dokter</li>
-                <li>RS Terdekat</li>
+                <a href="/homepage">
+                    <li>Home</li>
+                </a>
+                <a href="/blog">
+                    <li>Blog</li>
+                </a>
+                <a href="/cek-kesehatan">
+                    <li>Cek Kesehatan</li>
+                </a>
+                <a href="/booking-dokter">
+                    <li>Booking Dokter</li>
+                </a>
+                <a href="/rs-terdekat">
+                    <li>RS Terdekat</li>
+                </a>
             </ul>
         </div>
         <div class="artikel">
             <ul>
                 <li class="title-footer">Artikel</li>
-                <li>Kesehatan</li>
-                <li>Obat-Obatan</li>
-                <li>Tips and Tricks</li>
-                <li>Berita</li>
-                <li>Olahraga</li>
+                <a href="{{ route('blog.category', ['category' => 'kesehatan']) }}">
+                    <li>Kesehatan</li>
+                </a>
+                <a href="{{ route('blog.category', ['category' => 'obat-obatan']) }}">
+                    <li>Obat-Obatan</li>
+                </a>
+                <a href="{{ route('blog.category', ['category' => 'tips and tricks']) }}">
+                    <li>Tips and Tricks</li>
+                </a>
+                <a href="{{ route('blog.category', ['category' => 'berita']) }}">
+                    <li>Berita</li>
+                </a>
+                <a href="{{ route('blog.category', ['category' => 'olahraga']) }}">
+                    <li>Olahraga</li>
+                </a>
             </ul>
         </div>
         <div class="kontak">
@@ -201,7 +193,6 @@
         navbar.classList.toggle('open');
     }
 
-    // Close the menu when a link is clicked
     document.querySelectorAll('.navbar a').forEach(link => {
         link.onclick = () => {
             menu.classList.remove('bx-x');
@@ -212,7 +203,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const header = document.querySelector('header');
-        const scrollThreshold = 20; // Adjust this value based on when you want the header to become sticky
+        const scrollThreshold = 20;
 
         function updateHeaderSticky() {
             const scrollY = window.scrollY || window.pageYOffset;
@@ -227,9 +218,13 @@
 
         window.addEventListener('scroll', updateHeaderSticky);
 
-        // Initial call to set initial state
         updateHeaderSticky();
     });
+</script>
+<script>
+    function redirectToProfile() {
+        window.location.href = "/profile";
+    }
 </script>
 
 </html>

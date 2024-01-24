@@ -71,54 +71,54 @@
     /* Main Web */
     main {
         background: linear-gradient(90deg, #C2F396 0.2%, #E4CE7E 99.79%);
-        padding: 20px; /* Adjust padding for smaller screens */
+        padding: 20px;
         margin: 10px;
-        border-radius: 15px; /* Reduce border-radius for smaller screens */
-        gap: 20px; /* Reduce gap for smaller screens */
+        border-radius: 15px;
+        gap: 20px;
         display: flex;
-        flex-direction: column; /* Change to a column layout for smaller screens */
+        flex-direction: column;
         justify-content: center;
         align-items: center;
     }
 
-    main img{
+    main img {
         display: none;
     }
 
     .greeting h2,
     .greeting h1,
     .greeting p {
-        max-width: 100%; /* Ensure text does not overflow on smaller screens */
+        max-width: 100%;
     }
 
     .greeting h1 {
-        font-size: 24px; /* Decrease font size for smaller screens */
+        font-size: 24px;
         margin: 10px 0;
     }
 
     .greeting p {
-        font-size: 16px; /* Decrease font size for smaller screens */
+        font-size: 16px;
         margin-bottom: 10px;
     }
 
-    .search {
+    .search form {
         display: flex;
-        flex-direction: row; /* Change to a column layout for smaller screens */
+        flex-direction: row;
         align-items: center;
         justify-content: center;
         padding: 10px;
-        width: 100%; /* Make the search bar full width on smaller screens */
+        width: 100%;
         background-color: #f3f3f3;
-        height: auto; /* Adjust height for smaller screens */
-        border-radius: 30px; /* Reduce border-radius for smaller screens */
+        height: auto;
+        border-radius: 30px;
     }
 
     .search input {
-        width: 100%; /* Make the input field full width on smaller screens */
+        width: 100%;
     }
 
     .search button {
-        padding: 10px 20px; /* Decrease padding for smaller screens */
+        padding: 15px 20px;
         display: flex;
         height: max-content;
         align-items: center;
@@ -132,7 +132,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-top: 30px; /* Adjust margin for smaller screens */
+        margin-top: 30px;
     }
 
     .hero1 .hero-title {
@@ -143,46 +143,46 @@
     }
 
     .hero1 h1 {
-        max-width: 90%; /* Make text width 100% for smaller screens */
+        max-width: 90%;
         text-align: center;
-        font-size: 22px; /* Decrease font size for smaller screens */
+        font-size: 22px;
         margin-top: 10px;
     }
 
     .hero-title {
         display: flex;
-        flex-direction: column; /* Change to a column layout for smaller screens */
+        flex-direction: column;
         align-items: center;
         gap: 10px;
     }
 
     .hero-title p {
-        font-size: 16px; /* Decrease font size for smaller screens */
+        font-size: 16px;
         color: var(--palette-color2);
     }
 
     .hero-title img {
-        width: 20px; /* Decrease image size for smaller screens */
+        width: 20px;
         height: 20px;
     }
 
     .head-step {
         display: flex;
-        flex-direction: column; /* Change to a column layout for smaller screens */
+        flex-direction: column;
         align-items: center;
-        width: 100%; /* Make width 100% for smaller screens */
+        width: 100%;
         gap: 10px;
         margin-top: 20px;
     }
 
     .head-step i {
-        font-size: 20px; /* Decrease font size for smaller screens */
+        font-size: 20px;
         margin-top: 10px;
-        transform: rotate(90deg); /* Rotate by 90 degrees */
+        transform: rotate(90deg);
     }
 
     .head-step .step i {
-        font-size: 24px; /* Decrease font size for smaller screens */
+        font-size: 24px;
         margin: 0;
         transform: rotate(0deg);
     }
@@ -196,31 +196,31 @@
 
     .head-step .step p {
         text-align: center;
-        font-size: 16px; /* Decrease font size for smaller screens */
+        font-size: 16px;
         width: 90%;
     }
 
     .head-step .step h1 {
-        font-size: 16px; /* Decrease font size for smaller screens */
+        font-size: 16px;
         margin: 10px 0;
         width: fit-content;
         height: fit-content;
     }
 
     .head-step .circle {
-        height: 50px; /* Decrease height for smaller screens */
-        width: 50px; /* Decrease width for smaller screens */
+        height: 50px;
+        width: 50px;
     }
 
     .head-step .circle .mini-circle {
-        height: 15px; /* Decrease height for smaller screens */
-        width: 15px; /* Decrease width for smaller screens */
-        font-size: 14px; /* Decrease font size for smaller screens */
+        height: 15px;
+        width: 15px;
+        font-size: 14px;
     }
 
     /* Dokter Pilihan */
     .doctor-hero {
-        margin: 20px 10px 0 20px; /* Adjust margin for smaller screens */
+        margin: 20px 10px 0 20px;
     }
 
     .doctor-hero .hero-title {
@@ -231,7 +231,7 @@
     }
 
     .main-doctor-text {
-        flex-direction: column; /* Change to a column layout for smaller screens */
+        flex-direction: column;
         align-items: start;
     }
 
@@ -239,7 +239,7 @@
         display: none;
     }
 
-    .owl-item.active{
+    .owl-item.active {
         display: flex;
         justify-content: start;
         align-items: start;
@@ -247,66 +247,67 @@
     }
 
     .doctor-hero h1 {
-        font-size: 20px; /* Decrease font size for smaller screens */
-        max-width: 90%; /* Make text width 100% for smaller screens */
+        font-size: 20px;
+        max-width: 90%;
         margin-top: 10px;
     }
 
     .card-doctor {
-        padding: 15px; /* Decrease padding for smaller screens */
-        border-radius: 20px; /* Reduce border-radius for smaller screens */
+        padding: 15px;
+        border-radius: 20px;
         margin-left: 10px;
     }
 
     .head-card {
-        flex-direction: column; /* Change to a column layout for smaller screens */
+        flex-direction: column;
         gap: 10px;
         margin-top: 10px;
         cursor: grab;
     }
 
     .card-doctor img {
-        height: auto; /* Make image responsive */
-        width: 100%; /* Make image width 100% for smaller screens */
+        height: auto;
+        width: 100%;
     }
 
     .card-doctor span {
-        margin: 10px 0; /* Adjust margin for smaller screens */
+        margin: 10px 0;
     }
 
     .card-doctor p {
-        font-size: 16px; /* Decrease font size for smaller screens */
-        font-weight: 500; /* Adjust font weight for smaller screens */
+        font-size: 16px;
+        font-weight: 500;
     }
 
     /* Hero 1 */
     .hero-content1 {
         margin: 30px 20px 0 20px;
         display: flex;
-        flex-direction: column-reverse; /* Change to a column layout for smaller screens */
+        flex-direction: column-reverse;
         justify-content: center;
         align-items: center;
         position: relative;
-        gap: 20px; /* Adjust gap for smaller screens */
+        gap: 20px;
     }
 
     .hero-content1 .content1-hero .hero-title {
         display: flex;
         flex-direction: row;
-        justify-content: center; /* Align to the right */
+        justify-content: center;
         align-items: center;
         gap: 10px;
         text-align: right;
-    }    
+    }
 
     .image-hero1 {
         justify-content: center;
-        width: 50%; /* Make the image responsive */
+        width: 50%;
         margin: 0;
         gap: 0;
         padding: 0;
         gap: 10px;
     }
+
     .hero-content1-img2 {
         position: relative;
         width: 100%;
@@ -315,30 +316,31 @@
         box-shadow: none;
         max-width: 300px;
     }
+
     .hero-content1-img {
         width: 100%;
         max-width: 300px;
     }
 
     .hero-content1 h1 {
-        max-width: 100%; /* Make text width 100% for smaller screens */
-        font-size: 22px; /* Decrease font size for smaller screens */
+        max-width: 100%;
+        font-size: 22px;
         text-align: center;
     }
 
     .hero-content1 p {
-        max-width: 100%; /* Make text width 100% for smaller screens */
-        font-size: 16px; /* Decrease font size for smaller screens */
+        max-width: 100%;
+        font-size: 16px;
         text-align: center;
     }
 
     .hero-content1 .hero-title p {
-        font-size: 16px; /* Decrease font size for smaller screens */
+        font-size: 16px;
     }
 
     /* Hero 2 */
     .hero-content2 {
-        margin: 30px 20px 0 20px; /* Adjust margin for smaller screens */
+        margin: 30px 20px 0 20px;
         display: flex;
     }
 
@@ -350,19 +352,19 @@
     }
 
     .hero-content2 h1 {
-        font-size: 22px; /* Decrease font size for smaller screens */
-        max-width: 100%; /* Make text width 100% for smaller screens */
+        font-size: 22px;
+        max-width: 100%;
         text-align: center;
     }
 
     .content2-hero {
-        flex-direction: column; /* Change to a column layout for smaller screens */
-        gap: 20px; /* Adjust gap for smaller screens */
+        flex-direction: column;
+        gap: 20px;
     }
 
     .text-content h1 {
-        font-size: 16px; /* Decrease font size for smaller screens */
-        text-align: center; /* Center align for smaller screens */
+        font-size: 16px;
+        text-align: center;
     }
 
     .text-content {
@@ -370,57 +372,63 @@
         flex-direction: column;
     }
 
+    .text-content a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     .text-content p {
-        max-width: 100%; /* Make text width 100% for smaller screens */
-        font-size: 14px; /* Decrease font size for smaller screens */
+        max-width: 100%;
+        font-size: 14px;
         margin: 20px 0 20px 0;
         text-align: center;
     }
 
     .text-content button {
-        padding: 15px 20px; /* Adjust padding for smaller screens */
-        font-size: 14px; /* Decrease font size for smaller screens */
+        padding: 15px 20px;
+        font-size: 14px;
     }
 
     .text-content .rate {
-        flex-direction: row; /* Change to a column layout for smaller screens */
-        gap: 20px; /* Adjust gap for smaller screens */
+        flex-direction: row;
+        gap: 20px;
         justify-content: center;
         margin-top: 20px;
     }
 
     .text-content .rate .count h1 {
-        font-size: 36px; /* Decrease font size for smaller screens */
+        font-size: 36px;
     }
 
     .text-content .rate .count p {
-        font-size: 14px; /* Decrease font size for smaller screens */
+        font-size: 14px;
         margin-top: 0;
     }
 
     .content2-hero .image-hero2 {
         grid-template-columns: repeat(2, 1fr);
-        justify-content: center; /* Center the items horizontally */
+        justify-content: center;
         gap: 10px;
         margin: 0 20px;
     }
-    
+
     .content2-hero .image-hero2 img {
-        width: 100%; /* Make the image responsive */
-        border-radius: 15px; /* Adjust border-radius for smaller screens */
+        width: 100%;
+        border-radius: 15px;
     }
 
-    .content2-hero .image-hero2 .hero-content3-img{
+    .content2-hero .image-hero2 .hero-content3-img {
         width: 150px;
         height: 150px;
     }
-    
+
     /* Fitur Home */
     .fitur {
         margin: 30px 20px 0 20px;
         display: flex;
-        flex-direction: column; /* Change to a column layout for smaller screens */
-        gap: 20px; /* Adjust gap for smaller screens */
+        flex-direction: column;
+        gap: 20px;
         justify-content: center;
         align-items: center;
     }
@@ -433,43 +441,44 @@
     }
 
     .fitur .fitur-text h1 {
-        font-size: 22px; /* Decrease font size for smaller screens */
-        max-width: 100%; /* Make text width 100% for smaller screens */
+        font-size: 22px;
+        max-width: 100%;
         margin-top: 10px;
     }
 
     .fitur .fitur-text p {
-        font-size: 16px; /* Decrease font size for smaller screens */
-        max-width: 100%; /* Make text width 100% for smaller screens */
-        margin-top: 15px; /* Adjust margin for smaller screens */
+        font-size: 16px;
+        max-width: 100%;
+        margin-top: 15px;
     }
 
     .fitur button {
-        padding: 15px 20px; /* Adjust padding for smaller screens */
-        font-size: 14px; /* Decrease font size for smaller screens */
-        margin-top: 15px; /* Adjust margin for smaller screens */
+        padding: 15px 20px;
+        font-size: 14px;
+        margin-top: 15px;
     }
 
     .fitur .menu-fitur {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
-        justify-content: center; /* Center horizontally */
+        justify-content: center;
     }
-    
+
     .fitur .menu-fitur .card-fitur {
         width: 100%;
         padding: 20px;
         text-align: center;
         cursor: pointer;
     }
-    
+
 
     .fitur .menu-fitur .card-fitur h1 {
-        font-size: 16px; /* Decrease font size for smaller screens */
+        font-size: 16px;
         font-weight: 600;
     }
-    .fitur .menu-fitur .card-fitur img{
+
+    .fitur .menu-fitur .card-fitur img {
         width: 80%;
     }
 
@@ -483,7 +492,7 @@
         justify-content: center;
         align-items: center;
     }
-    
+
     .artikel-home .hero-title {
         display: flex;
         flex-direction: row;
@@ -510,7 +519,7 @@
         padding: 15px;
         background-color: #F3F3F3;
         border-radius: 20px;
-        text-align: center; /* Center align for the entire card */
+        text-align: center;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -520,7 +529,7 @@
 
     .artikel-home .wrapcard-artikel-home .card-artikel-home img {
         display: block;
-        margin: 0 auto; /* Center the image horizontally */
+        margin: 0 auto;
     }
 
     .artikel-home .wrapcard-artikel-home .card-artikel-home h1 {
@@ -555,16 +564,17 @@
     .artikel-home2 {
         display: flex;
         flex-direction: column;
-        margin-left: 20px; /* Adjust margin for smaller screens */
-        margin-right: 20px; /* Adjust margin for smaller screens */
-        margin-top: 30px; /* Adjust margin for smaller screens */
+        margin-left: 20px;
+        margin-right: 20px;
+        margin-top: 30px;
     }
 
     .artikel-home2 h1 {
-        font-size: 22px; /* Decrease font size for smaller screens */
-        max-width: 100%; /* Make text width 100% for smaller screens */
+        font-size: 22px;
+        max-width: 100%;
         text-align: start;
     }
+
     .artikel-home2-text .hero-title {
         display: flex;
         flex-direction: row;
@@ -574,19 +584,19 @@
 
     .artikel-home2 .wrapcard-artikel-home2 {
         display: flex;
-        flex-direction: column; /* Change to a column layout for smaller screens */
+        flex-direction: column;
         gap: 20px;
         margin-top: 20px;
     }
 
     .artikel-home2 .wrapcard-artikel-home2 .card-artikel-home2 {
-        width: 100%; /* Make width 100% for smaller screens */
-        padding: 15px; /* Decrease padding for smaller screens */
+        width: 100%;
+        padding: 15px;
         border-radius: 20px;
     }
 
     .artikel-home2 .wrapcard-artikel-home2 .card-artikel-home2 img {
-        width: 100%; /* Make the image responsive */
+        width: 100%;
         border-radius: 20px;
     }
 
@@ -598,13 +608,13 @@
     }
 
     .artikel-home2 .wrapcard-artikel-home2 .card-artikel-home2 p {
-        max-width: 100%; /* Make text width 100% for smaller screens */
+        max-width: 100%;
         margin-top: 10px;
     }
 
     .main-artikel-home2-text {
         display: flex;
-        flex-direction: column; /* Change to a column layout for smaller screens */
+        flex-direction: column;
         align-items: start;
         justify-content: center;
     }
@@ -622,11 +632,11 @@
     /* Footer */
     footer {
         display: flex;
-        flex-direction: column; /* Change to a column layout for smaller screens */
+        flex-direction: column;
         align-items: center;
-        gap: 30px; /* Adjust gap for smaller screens */
-        margin-top: 30px; /* Adjust margin for smaller screens */
-        padding: 20px; /* Adjust padding for smaller screens */
+        gap: 30px;
+        margin-top: 30px;
+        padding: 20px;
         background-color: var(--palette-color3);
         color: #C2C2C2;
     }
@@ -634,7 +644,7 @@
     footer .logo {
         display: flex;
         flex-direction: column;
-        align-items: center; /* Center align for smaller screens */
+        align-items: center;
         gap: 20px;
         text-align: center;
     }
@@ -653,31 +663,34 @@
         list-style: none;
         padding: 0;
         margin: 0;
-        text-align: center; /* Center align for smaller screens */
+        text-align: center;
     }
 
 
     /* ============== Blog ============== */
     .blog {
         display: flex;
-        flex-direction: column; /* Change to column layout for smaller screens */
-        margin: 20px 20px 0 20px; /* Adjust margin for smaller screens */
-        gap: 20px; /* Adjust gap for smaller screens */
+        flex-direction: column;
+        margin: 0;
+        gap: 20px;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        padding: 20px 20px 0 20px;
     }
 
-    .search-blog {
+    .search-blog form {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        /* padding-left: 20px; */
         gap: 10px;
-        width: max-content;
+        width: 90%;
         background-color: #f3f3f3;
-        height: 70px;
+        height: 56px;
         border-radius: 30px;
-        margin: 0 10px 0 10px;
+        margin: 0 0 0 10px;
     }
-    
+
     .search-blog input {
         background: transparent;
         border: none;
@@ -685,14 +698,14 @@
         outline: none;
         color: var(--palette-color3);
     }
-    
+
     .search-blog input::placeholder {
         color: var(--palette-color3);
     }
-    
+
     .search-blog button {
         background-color: #27392D;
-        padding: 20px 30px;
+        padding: 15px 20px;
         border-radius: 30px;
         color: #f3f3f3;
         cursor: pointer;
@@ -701,20 +714,24 @@
         align-items: center;
     }
 
+    .main-blog {
+        width: 100%;
+    }
+
     /* Top Blog */
     .top-blog {
-        max-width: 100%; /* Make the top blog take full width on smaller screens */
+        width: 100%;
     }
 
     .top-blog img {
-        width: 100%; /* Make the image responsive */
-        height: auto; /* Maintain aspect ratio */
+        width: 100%;
+        height: auto;
     }
 
     /* Item Blog */
     .item-blog {
         display: flex;
-        flex-direction: column; /* Change to column layout for smaller screens */
+        flex-direction: column;
         gap: 20px;
     }
 
@@ -724,27 +741,27 @@
     }
 
     .item-blog .card-item-blog {
-        max-width: 100%; /* Make the card take full width on smaller screens */
+        max-width: 100%;
     }
 
     .item-blog .card-item-blog img {
-        width: 100%; /* Make the image responsive */
-        height: auto; /* Maintain aspect ratio */
+        width: 100%;
+        height: auto;
     }
 
     /* Side Blog */
     .side-blog {
-        width: 100%; /* Make the side blog take full width on smaller screens */
+        width: 100%;
     }
 
     /* Categories */
     .categries {
-        gap: 10px; /* Adjust gap for smaller screens */
+        gap: 10px;
     }
 
     /* Tabs */
     .tab-container {
-        margin-top: 20px; /* Adjust margin for smaller screens */
+        margin-top: 20px;
     }
 
     .tab {
@@ -754,10 +771,11 @@
 
     /* Main Tab */
     .main-tab {
-        flex-direction: row; /* Change to column layout for smaller screens */
+        flex-direction: row;
         gap: 10px;
     }
-    .main-tab img{
+
+    .main-tab img {
         width: 100%;
     }
 
@@ -768,32 +786,32 @@
 
     /* Top Side Blog */
     .top-side-blog {
-        max-width: 100%; /* Make the top side blog take full width on smaller screens */
+        max-width: 100%;
     }
 
     .top-side-blog img {
-        width: 100%; /* Make the image responsive */
-        height: auto; /* Maintain aspect ratio */
+        width: 100%;
+        height: auto;
     }
 
     /* ============== Detail Blog ============== */
     .detail-blog {
         display: flex;
         flex-direction: column;
-        margin: 0 20px; /* Adjust margin for smaller screens */
+        margin: 0 20px;
         justify-content: center;
         align-items: center;
     }
 
     .detail-blog img {
         border-radius: 30px;
-        max-width: 100%; /* Make the image responsive */
-        height: auto; /* Maintain aspect ratio */
+        width: 100%;
+        height: auto;
     }
 
     .text-detail-blog {
         margin-top: 20px;
-        max-width: 100%; /* Make the text container responsive */
+        max-width: 100%;
     }
 
     .text-detail-blog span {
@@ -805,13 +823,13 @@
     }
 
     .text-detail-blog h1 {
-        max-width: 100%; /* Make the heading responsive */
+        max-width: 100%;
         margin-top: 20px;
         font-size: 20px;
     }
 
     .text-detail-blog p {
-        max-width: 100%; /* Make the paragraph responsive */
+        max-width: 100%;
         margin-top: 20px;
     }
 
@@ -821,7 +839,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        margin: 0 20px; /* Adjust margin for smaller screens */
+        margin: 0 20px;
     }
 
     .cek-kesehatan .hero-title {
@@ -832,30 +850,30 @@
     }
 
     .cek-kesehatan h1 {
-        max-width: 100%; /* Make the heading responsive */
+        max-width: 100%;
         text-align: center;
         font-size: 22px;
     }
 
     .item-cek-kesehatan {
         display: flex;
-        flex-direction: column; /* Change to column layout for smaller screens */
+        flex-direction: column;
         gap: 20px;
         margin-top: 20px;
     }
 
     .card-cek-kesehatan {
-        max-width: 100%; /* Make the card take full width on smaller screens */
+        max-width: 100%;
         border-radius: 30px;
         align-items: center;
         text-align: center;
         background-color: #F3F3F3;
-        padding: 20px; /* Decrease padding for smaller screens */
+        padding: 20px;
     }
 
     .card-cek-kesehatan img {
-        max-width: 50%; /* Make the image responsive */
-        height: auto; /* Maintain aspect ratio */
+        max-width: 50%;
+        height: auto;
     }
 
     .card-cek-kesehatan h1 {
@@ -864,24 +882,24 @@
 
     .card-cek-kesehatan p {
         margin-top: 10px;
-        max-width: 100%; /* Make the paragraph responsive */
+        max-width: 100%;
     }
 
     /* ============== Booking Dokter ============== */
     .booking-dokter {
-        margin: 0 20px; /* Adjust margin for smaller screens */
+        margin: 0 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
     }
 
     .booking-dokter h1 {
-        max-width: 100%; /* Make the heading responsive */
+        max-width: 100%;
         text-align: center;
         font-size: 22px;
     }
 
-    .booking-dokter .hero-title{
+    .booking-dokter .hero-title {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -892,7 +910,7 @@
     .main-dokter {
         display: flex;
         flex-direction: column;
-        margin-top: 20px; /* Adjust margin for smaller screens */
+        margin-top: 20px;
     }
 
     .main-dokter h1 {
@@ -902,19 +920,19 @@
 
     .wrap-card-booking-dokter {
         display: grid;
-        grid-template-columns: repeat(1, 1fr); /* Change to a single column for smaller screens */
+        grid-template-columns: repeat(1, 1fr);
         gap: 20px;
         margin-top: 20px;
     }
 
     .card-booking-dokter {
-        max-width: 100%; /* Make the card take full width on smaller screens */
+        max-width: 100%;
         border-radius: 30px;
         background-color: #F3F3F3;
         padding: 20px;
     }
 
-    .card-booking-dokter img{
+    .card-booking-dokter img {
         max-width: 320px;
     }
 
@@ -936,7 +954,7 @@
         margin-top: 5px;
     }
 
-    .card-booking-dokter .rating i{
+    .card-booking-dokter .rating i {
         margin-top: 10px;
         color: #FF9A24;
     }
@@ -945,10 +963,10 @@
     .rs-terdekat {
         display: flex;
         flex-direction: column;
-        margin: 0 20px; /* Adjust margin for smaller screens */
+        margin: 0 20px;
     }
 
-    
+
     .rs-terdekat .hero-title {
         display: flex;
         flex-direction: row;
@@ -959,14 +977,14 @@
 
     .rs-terdekat h1 {
         font-size: 22px;
-        max-width: 100%; /* Make the heading responsive */
+        max-width: 100%;
         text-align: center;
     }
 
     .rs-terdekat button {
         padding: 15px 30px;
         border-radius: 30px;
-        width: 100%; /* Make the button take full width on smaller screens */
+        width: 100%;
         border: none;
         outline: none;
         background-color: var(--palette-color3);
@@ -976,20 +994,20 @@
 
     .card-rs {
         display: flex;
-        flex-direction: column; /* Change to a column layout for smaller screens */
+        flex-direction: column;
         align-items: center;
         gap: 20px;
         padding: 20px;
         border-radius: 30px;
         background-color: #F3F3F3;
-        width: 100%; /* Make the card take full width on smaller screens */
+        width: 100% !important;
         margin-top: 20px;
     }
 
     .card-rs img {
         border-radius: 30px;
-        max-width: 100%; /* Make the image responsive */
-        height: auto; /* Maintain aspect ratio */
+        max-width: 100%;
+        height: auto;
     }
 
     .card-rs .text-rs h1 {
@@ -1000,7 +1018,7 @@
     .card-rs .text-rs p {
         font-size: 16px;
         margin-top: 10px;
-        max-width: 100%; /* Make the paragraph responsive */
+        max-width: 100%;
     }
 
     .visit {
@@ -1009,15 +1027,16 @@
 
     /* ============== Profile ============== */
     .data-profile {
-        width: 80%; /* Adjust width for smaller screens */
+        width: 90%;
     }
 
     .profile-picture img {
-        width: 150px; /* Adjust profile picture size for smaller screens */
+        width: 150px;
         height: 150px;
         position: relative;
     }
-    .edit-profile .profile-picture a{
+
+    .edit-profile .profile-picture a {
         position: absolute;
         bottom: 0;
         right: 0;
@@ -1029,13 +1048,14 @@
         justify-content: center;
         align-items: center;
     }
+
     .name {
-        grid-template-columns: repeat(2, 1fr); /* Change to a single column for smaller screens */
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .name .first-name input,
     .name .last-name input {
-        width: 100%; /* Adjust width for smaller screens, accounting for padding */
+        width: 100%;
     }
 
     .usia,
@@ -1046,20 +1066,25 @@
     }
 
     .edit-profile a {
-        margin: 10px 0 30px 0 !important; /* Adjust margin for smaller screens */
+        margin: 10px 0 30px 0 !important;
+    }
+
+    .tombol-profile {
+        margin-bottom: 80px;
     }
 
     /* ============== Riwayat ============== */
     .riwayat {
         margin-left: 20px;
         margin-right: 20px;
+        height: auto;
     }
 
     .riwayat h1 {
         font-size: 22px;
     }
 
-    .riwayat .hero-title{
+    .riwayat .hero-title {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -1069,20 +1094,21 @@
 
     .main-card-riwayat {
         grid-template-columns: 1fr;
-        gap: 10px; 
+        gap: 10px;
     }
 
     .card-riwayat {
         flex-direction: column;
-        width: 100%; /* Stack cards vertically on smaller screens */
+        width: 100%;
         gap: 10px;
     }
 
-    .main-card-riwayat .card-riwayat h1{
+    .main-card-riwayat .card-riwayat h1 {
         font-size: 16px;
         margin-top: 0;
     }
-    .main-card-riwayat .card-riwayat p{
+
+    .main-card-riwayat .card-riwayat p {
         font-size: 16px;
         margin: 5px 0;
     }
@@ -1092,7 +1118,7 @@
     }
 
     .card-riwayat .dokter-profile,
-    .card-riwayat .dokter-booked{
+    .card-riwayat .dokter-booked {
         width: 100%;
         margin: 0
     }
@@ -1105,7 +1131,7 @@
     }
 
     .booking-detail {
-        margin: 0 20px; /* Adjust margin for smaller screens */
+        margin: 0 20px;
         display: flex;
         justify-content: center;
         flex-direction: column;
@@ -1116,16 +1142,16 @@
     .tanggal {
         display: flex;
         flex-direction: column;
-        padding: 10px; /* Adjust padding for smaller screens */
+        padding: 10px;
         background: #FFF;
         box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.15);
         border-radius: 20px;
-        width: 100%; /* Full width for smaller screens */
+        width: 100%;
     }
 
     .tanggal .main-tanggal {
         display: flex;
-        flex-direction: column; /* Stack items vertically on smaller screens */
+        flex-direction: column;
         gap: 10px;
         align-items: center;
     }
@@ -1136,20 +1162,20 @@
 
     .item-tanggal {
         display: grid;
-        grid-template-columns: repeat(2, 1fr); /* Two columns on smaller screens */
+        grid-template-columns: repeat(2, 1fr);
         gap: 10px;
     }
 
     .item-tanggal .select-tanggal {
         margin-top: 10px;
-        padding: 10px; /* Adjust padding for smaller screens */
-        width: 100%; /* Full width for smaller screens */
+        padding: 10px;
+        width: 100%;
     }
 
     .jam {
-        padding: 10px; /* Adjust padding for smaller screens */
+        padding: 10px;
         border-radius: 20px;
-        width: 100%; /* Full width for smaller screens */
+        width: 100%;
     }
 
     .jam h1 {
@@ -1157,14 +1183,14 @@
     }
 
     .item-jam {
-        grid-template-columns: repeat(2, 1fr); /* Two columns on smaller screens */
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .data-pasien {
-        padding: 10px; /* Adjust padding for smaller screens */
+        padding: 10px;
         border-radius: 20px;
-        width: 100%; /* Full width for smaller screens */
-        grid-template-columns: 1fr; /* Single column on smaller screens */
+        width: 100%;
+        grid-template-columns: 1fr;
     }
 
     .data-pasien h1 {
@@ -1187,15 +1213,16 @@
     .bmi .bmih1 {
         max-width: 600px;
         text-align: center;
+        font-size: 22px;
     }
 
-    .bmi .hero-title{
+    .bmi .hero-title {
         display: flex;
         flex-direction: row;
     }
 
     .bmi .cek-bmi {
-        width: 90%; /* Adjust width for smaller screens */
+        width: 90%;
     }
 
     .bmi .cek-bmi h1 {
@@ -1210,18 +1237,18 @@
 
     .bmi .cek-bmi .main-gender-bmi .gender-bmi {
         display: flex;
-        flex-direction: column; /* Stack items vertically on smaller screens */
+        flex-direction: column;
     }
 
     .bmi .cek-bmi .main-gender-bmi .gender-bmi .pria,
     .bmi .cek-bmi .main-gender-bmi .gender-bmi .wanita {
-        padding: 15px; /* Adjust padding for smaller screens */
+        padding: 15px;
     }
 
     .bmi .cek-bmi .main-gender-bmi .gender-bmi .pria img,
     .bmi .cek-bmi .main-gender-bmi .gender-bmi .wanita img {
-        width: 30px; /* Adjust image size for smaller screens */
-        height: 30px; /* Adjust image size for smaller screens */
+        width: 30px;
+        height: 30px;
     }
 
     .cek-bmi .usia-bmi,
@@ -1235,8 +1262,8 @@
     .cek-bmi .usia-bmi input,
     .cek-bmi .tinggi-bmi input,
     .cek-bmi .berat-badan-bmi input {
-        padding: 15px; /* Adjust padding for smaller screens */
-        height: 50px; /* Adjust input height for smaller screens */
+        padding: 15px;
+        height: 50px;
     }
 
     .hasil-bmi {
@@ -1251,9 +1278,9 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        width: 90%; /* Adjust width for smaller screens */
-        border-radius: 20px; /* Adjust border radius for smaller screens */
-        padding: 20px; /* Adjust padding for smaller screens */
+        width: 90%;
+        border-radius: 20px;
+        padding: 20px;
     }
 
     .hasil-bmi .main-hasil-bmi .content-hasil-bmi {
@@ -1266,7 +1293,7 @@
     }
 
     .hasil-bmi .main-hasil-bmi .content-hasil-bmi h1 {
-        font-size: 36px; /* Adjust font size for smaller screens */
+        font-size: 36px;
     }
 
     /* ============== ANTRIAN ============== */
@@ -1293,19 +1320,19 @@
         align-items: center;
         justify-content: start;
         gap: 10px;
-        width: 100%; /* Full width on smaller screens */
+        width: 100%;
     }
 
     .antrian .main-card-antrian,
     .antrian .main-card-antrian .card-antrian {
-        width: 100%; /* Full width on smaller screens */
+        width: 100%;
     }
 
     .antrian .main-card-antrian .card-antrian {
         background-color: #F3F3F3;
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 10px;
         align-items: start;
         justify-content: start;
         padding: 20px;
@@ -1313,16 +1340,16 @@
     }
 
     .antrian .main-card-antrian .card-antrian img {
-        max-width: 100%; /* Responsive image */
+        max-width: 100%;
     }
 
     .antrian .main-card-antrian .card-antrian h1 {
         font-size: 18px;
-        margin: 10px 0;
+        margin: 5px 0;
     }
 
     .antrian .main-card-antrian .card-antrian p {
-        margin: 10px 0;
+        margin: 5px 0;
     }
 
     .antrian .main-card-antrian .card-antrian span {
@@ -1356,37 +1383,81 @@
     }
 
     .hasil-stress img {
-        max-width: 90%; /* Make the image responsive */
+        max-width: 90%;
         height: auto;
     }
 
     .hasil-stress p {
-        max-width: 90%; /* Make the paragraph responsive */
+        max-width: 90%;
         text-align: center;
+    }
+
+    /* ============== CEK STRESS&CEMAS ============== */
+    .stress {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        padding: 10px;
+    }
+
+    .stepper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 60vh;
+    }
+
+    .stepper h1 {
+        font-size: 18px ;
+        max-width: 800px;
+    }
+
+    .stepcek {
+        display: none;
+        text-align: center;
+        margin-bottom: 0;
+    }
+
+
+    .stepcek:first-child {
+        display: block;
+    }
+
+    .options {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 20px;
+        align-items: center;
+        margin-top: 20px;
     }
 
 }
 
 
 @media screen and (min-width: 768px) and (max-width: 1279px) {
-    .rs-terdekat{
+    .rs-terdekat {
         margin: 0 20px;
     }
+
     .card-rs {
         display: flex;
-        flex-direction: column; /* Change to a column layout for smaller screens */
+        flex-direction: column;
         align-items: start;
         gap: 20px;
         padding: 20px;
         border-radius: 30px;
         background-color: #F3F3F3;
-        width: 100%; /* Make the card take full width on smaller screens */
+        width: 100%;
         margin-top: 20px;
     }
 
     .wrap-card-booking-dokter {
         display: grid;
-        grid-template-columns: repeat(2, 1fr); /* Change to a single column for smaller screens */
+        grid-template-columns: repeat(2, 1fr);
         gap: 20px;
         margin-top: 20px;
     }
@@ -1404,13 +1475,13 @@
         text-align: center;
     }
 
-    .bmi .hero-title{
+    .bmi .hero-title {
         display: flex;
         flex-direction: row;
     }
 
     .bmi .cek-bmi {
-        width: 90%; /* Adjust width for smaller screens */
+        width: 90%;
     }
 
     .bmi .cek-bmi h1 {
@@ -1425,7 +1496,7 @@
 
     .bmi .cek-bmi .main-gender-bmi .gender-bmi {
         display: flex;
-        flex-direction: row; /* Stack items vertically on smaller screens */
+        flex-direction: row;
     }
 
     /* ============== Riwayat ============== */
@@ -1443,7 +1514,7 @@
         text-align: center;
     }
 
-    .riwayat .hero-title{
+    .riwayat .hero-title {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -1453,20 +1524,21 @@
 
     .main-card-riwayat {
         grid-template-columns: 1fr;
-        gap: 10px; 
+        gap: 10px;
     }
 
     .card-riwayat {
         flex-direction: row;
-        width: 100%; /* Stack cards vertically on smaller screens */
+        width: 100%;
         gap: 20px;
     }
 
-    .main-card-riwayat .card-riwayat h1{
+    .main-card-riwayat .card-riwayat h1 {
         font-size: 16px;
         margin-top: 0;
     }
-    .main-card-riwayat .card-riwayat p{
+
+    .main-card-riwayat .card-riwayat p {
         font-size: 16px;
         margin: 5px 0;
     }
@@ -1476,7 +1548,7 @@
     }
 
     .card-riwayat .dokter-profile,
-    .card-riwayat .dokter-booked{
+    .card-riwayat .dokter-booked {
         width: 100%;
         margin: 0;
         display: flex;
@@ -1485,7 +1557,7 @@
     }
 
     .card-riwayat .dokter-profile span,
-    .card-riwayat .dokter-booked span{
+    .card-riwayat .dokter-booked span {
         margin: 0 0 0 0;
     }
 
@@ -1514,12 +1586,12 @@
         align-items: center;
         justify-content: start;
         gap: 10px;
-        width: 100%; /* Full width on smaller screens */
+        width: 100%;
     }
 
     .antrian .main-card-antrian,
     .antrian .main-card-antrian .card-antrian {
-        width: 100%; /* Full width on smaller screens */
+        width: 100%;
     }
 
     .antrian .main-card-antrian .card-antrian {
@@ -1534,7 +1606,7 @@
     }
 
     .antrian .main-card-antrian .card-antrian img {
-        max-width: 100%; /* Responsive image */
+        max-width: 100%;
     }
 
     .antrian .main-card-antrian .card-antrian h1 {
@@ -1564,6 +1636,48 @@
         color: #F3F3F3;
         width: fit-content;
     }
+
+    /* ============== CEK STRESS&CEMAS ============== */
+    .stress {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+    }
+
+    .stepper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 60vh;
+        
+    }
+
+    .stepper h1 {
+        font-size: 24px;
+        max-width: 800px;
+    }
+
+    .stepcek {
+        display: none;
+        text-align: center;
+        margin-bottom: 100px;
+    }
+
+    .stepcek:first-child {
+        display: block;
+    }
+
+    .options {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 20px;
+        align-items: center;
+        margin-top: 100px;
+    }
 }
 
 @media screen and (min-width: 1200px) and (max-width: 1512px) {
@@ -1577,12 +1691,13 @@
         justify-content: space-around;
         align-items: center;
     }
-    
+
     main img {
         width: 500px;
         height: 400px;
         margin: 50px 0;
     }
+
     /* Dokter Pilihan */
     .doctor-hero {
         margin: 50px 50px 0 50px;
@@ -1672,7 +1787,7 @@
         gap: 20px;
     }
 
-    
+
     /* ============== Detail Blog ============== */
     .detail-blog {
         display: flex;
@@ -1767,7 +1882,6 @@
         grid-template-columns: repeat(2, 1fr);
         justify-content: space-between;
         gap: 20px;
-        /* Adjust the gap value based on your design */
         width: 100%;
         margin-top: 20px;
     }

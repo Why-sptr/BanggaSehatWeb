@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Selamat datang di situs kami! Temukan informasi terbaru, layanan kami, dan banyak lagi.">
+    <link rel="icon" href="{{ asset('image/icon.png') }}" type="image/x-icon">
     <title>Blog</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/responsivemobile.css') }}">
@@ -23,18 +26,14 @@
             }
             document.getElementById(tabName).classList.add("active");
 
-            // Remove 'active' class from all tabs
             tabLinks = document.getElementsByClassName("tab");
             for (i = 0; i < tabLinks.length; i++) {
                 tabLinks[i].classList.remove("active");
             }
 
-            // Add 'active' class to the clicked tab
             event.currentTarget.classList.add("active");
-            // Log the clicked element for debugging
             console.log("Clicked Element:", event.target);
 
-            // Add 'active' class to the clicked tab only if it is a tab element
             if (event.target.classList.contains("tab")) {
                 event.target.classList.add("active");
             }
@@ -52,14 +51,27 @@
             <li><a href="/cek-kesehatan">Cek Kesehatan</a></li>
             <li><a href="/booking-dokter">Booking Dokter</a></li>
             <li><a href="/rs-terdekat">RS Terdekat</a></li>
+            <li>
+                @if (isset($user))
+                    <a href="{{ route('riwayat', ['userId' => Crypt::encryptString($user->id)]) }}">Lihat Riwayat</a>
+                @else
+                @endif
+            </li>
+
         </ul>
 
         <div class="main-navbar">
-            <a href="#">Login</a>
+            @auth
+                <div class="user-profile" onclick="redirectToProfile()">
+                    <img src="{{ Auth::user()->profile_picture }}" alt="Profile Picture" style="border: 5px solid #f3f3f3">
+                </div>
+            @else
+                <a href="/login">Login</a>
+            @endauth
             <div class='bx bx-menu' id="menu-icon"></div>
         </div>
     </header>
-    <div class="search">
+    <div class="search-blog">
         <form action="{{ route('blog.search') }}" method="GET">
             <input type="text" name="search" placeholder="Ketuk disini untuk mencari">
             <button type="submit">Cari</button>
@@ -82,12 +94,11 @@
                     <a href="{{ route('artikel.detail', ['id' => $artikel->id]) }}">
                         <div class="card-item-blog">
                             <img src="{{ asset('artikel/' . $artikel->gambar) }}" alt="Gambar Artikel" width="200">
-                            {{-- Menambahkan kondisi di dalam tag span --}}
                             <span
                                 style="background-color: 
-                            @if ($artikel->kategori == 'kesehatan') default
-                            @elseif($artikel->kategori == 'obat-obatan') #FFB45C
-                            @elseif($artikel->kategori == 'tips and tricks') #FFA67E @endif;">
+                            @if ($artikel->kategori == 'Kesehatan') default
+                            @elseif($artikel->kategori == 'Obat-obatan') #FFB45C
+                            @elseif($artikel->kategori == 'Tips and Tricks') #FFA67E @endif;">
                                 {{ $artikel->kategori }}
                             </span>
 
@@ -96,7 +107,6 @@
                         </div>
                     </a>
                 @endforeach
-
             </div>
         </div>
         <div class="side-blog">
@@ -124,11 +134,11 @@
                                 <h1>{{ $populer->judul }}</h1>
                                 <span
                                     style="background-color: 
-                            @if ($populer->kategori == 'kesehatan') default
-                            @elseif($populer->kategori == 'obat-obatan') #FFB45C
-                            @elseif($populer->kategori == 'tips and tricks') #FFA67E @endif;">
-                                    {{ $populer->kategori }}
-                                </span>
+                            @if ($artikel->kategori == 'Kesehatan') default
+                            @elseif($artikel->kategori == 'Obat-obatan') #FFB45C
+                            @elseif($artikel->kategori == 'Tips and Tricks') #FFA67E @endif;">
+                                {{ $artikel->kategori }}
+                            </span>
                             </div>
                         </div>
                     </a>
@@ -144,11 +154,11 @@
                                 <h1>{{ $terbaru->judul }}</h1>
                                 <span
                                     style="background-color: 
-                            @if ($terbaru->kategori == 'kesehatan') default
-                            @elseif($terbaru->kategori == 'obat-obatan') #FFB45C
-                            @elseif($terbaru->kategori == 'tips and tricks') #FFA67E @endif;">
-                                    {{ $terbaru->kategori }}
-                                </span>
+                            @if ($artikel->kategori == 'Kesehatan') default
+                            @elseif($artikel->kategori == 'Obat-obatan') #FFB45C
+                            @elseif($artikel->kategori == 'Tips and Tricks') #FFA67E @endif;">
+                                {{ $artikel->kategori }}
+                            </span>
                             </div>
                         </div>
                     </a>
@@ -165,11 +175,11 @@
                                 <h1>{{ $rekomendasi->judul }}</h1>
                                 <span
                                     style="background-color: 
-                            @if ($rekomendasi->kategori == 'kesehatan') default
-                            @elseif($rekomendasi->kategori == 'obat-obatan') #FFB45C
-                            @elseif($rekomendasi->kategori == 'tips and tricks') #FFA67E @endif;">
-                                    {{ $rekomendasi->kategori }}
-                                </span>
+                            @if ($artikel->kategori == 'Kesehatan') default
+                            @elseif($artikel->kategori == 'Obat-obatan') #FFB45C
+                            @elseif($artikel->kategori == 'Tips and Tricks') #FFA67E @endif;">
+                                {{ $artikel->kategori }}
+                            </span>
                             </div>
                         </div>
                     </a>
@@ -180,7 +190,13 @@
                 <div class="top-side-blog">
                     <a href="{{ route('artikel.detail', ['id' => $topartikel2->id]) }}">
                         <img src="{{ asset('artikel/' . $topartikel2->gambar) }}" alt="Gambar Artikel">
-                        <span>{{ $topartikel2->kategori }}</span>
+                        <span
+                                    style="background-color: 
+                            @if ($topartikel2->kategori == 'Kesehatan') default
+                            @elseif($topartikel2->kategori == 'Obat-obatan') #FFB45C
+                            @elseif($topartikel2->kategori == 'Tips and Tricks') #FFA67E @endif;">
+                                {{ $topartikel2->kategori }}
+                            </span>
                         <h1>{{ $topartikel2->judul }}</h1>
                     </a>
                 </div>
@@ -202,11 +218,21 @@
         <div class="menu">
             <ul>
                 <li class="title-footer">Menu</li>
-                <li>Home</li>
-                <li>Blog</li>
-                <li>Cek Kesehatan</li>
-                <li>Booking Dokter</li>
-                <li>RS Terdekat</li>
+                <a href="/homepage">
+                    <li>Home</li>
+                </a>
+                <a href="/blog">
+                    <li>Blog</li>
+                </a>
+                <a href="/cek-kesehatan">
+                    <li>Cek Kesehatan</li>
+                </a>
+                <a href="/booking-dokter">
+                    <li>Booking Dokter</li>
+                </a>
+                <a href="/rs-terdekat">
+                    <li>RS Terdekat</li>
+                </a>
             </ul>
         </div>
         <div class="artikel">
@@ -237,7 +263,6 @@
         navbar.classList.toggle('open');
     }
 
-    // Close the menu when a link is clicked
     document.querySelectorAll('.navbar a').forEach(link => {
         link.onclick = () => {
             menu.classList.remove('bx-x');
@@ -248,7 +273,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const header = document.querySelector('header');
-        const scrollThreshold = 20; // Adjust this value based on when you want the header to become sticky
+        const scrollThreshold = 20;
 
         function updateHeaderSticky() {
             const scrollY = window.scrollY || window.pageYOffset;
@@ -263,7 +288,6 @@
 
         window.addEventListener('scroll', updateHeaderSticky);
 
-        // Initial call to set initial state
         updateHeaderSticky();
     });
 </script>
@@ -290,6 +314,11 @@
             });
         });
     });
+</script>
+<script>
+    function redirectToProfile() {
+        window.location.href = "/profile";
+    }
 </script>
 
 </html>

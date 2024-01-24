@@ -4,7 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking Dokter</title>
+    <meta name="description"
+        content="Selamat datang di situs kami! Temukan informasi terbaru, layanan kami, dan banyak lagi.">
+        <link rel="icon" href="{{ asset('image/icon.png') }}" type="image/x-icon">
+    <title>Rumah Sakit Terdekat</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/responsivemobile.css') }}">
     <!-- Font -->
@@ -26,10 +29,23 @@
             <li><a href="/cek-kesehatan">Cek Kesehatan</a></li>
             <li><a href="/booking-dokter">Booking Dokter</a></li>
             <li><a href="/rs-terdekat" class="active">RS Terdekat</a></li>
+            <li>
+                @if (isset($user))
+                    <a href="{{ route('riwayat', ['userId' => Crypt::encryptString($user->id)]) }}">Lihat Riwayat</a>
+                @else
+                @endif
+            </li>
+
         </ul>
 
         <div class="main-navbar">
-            <a href="#">Login</a>
+            @auth
+                <div class="user-profile" onclick="redirectToProfile()">
+                    <img src="{{ Auth::user()->profile_picture }}" alt="Profile Picture" style="border: 5px solid #f3f3f3">
+                </div>
+            @else
+                <a href="/login">Login</a>
+            @endauth
             <div class='bx bx-menu' id="menu-icon"></div>
         </div>
     </header>
@@ -39,62 +55,28 @@
             <p>Ingin Mencari Rumah Sakit Terdekat</p>
         </div>
         <h1>Temukan Rumah Sakit Terdekat di Sekitar Kamu</h1>
-        <button>Cari</button>
-        <div class="card-rs">
-            <img src="image/rs.png" alt="">
-            <div class="text-rs">
-                <h1>Rumah Sakit Kariadi</h1>
-                <p>Jl. DR. Sutomo No.16, Randusari, Kec. Semarang Sel., Kota Semarang, Jawa Tengah 50244</p>
-                <div class="visit">
-                    <p>Kunjungi</p>
-                    <i class='bx bx-right-arrow-alt'></i>
+        <button id="btnCari">Cari</button>
+
+        <div id="hasilPencarian" style="display: none;">
+            @foreach ($rumahSakitTerdekat as $rs)
+                <div class="card-rs">
+                    <img src="image/rs.png" alt="">
+                    <div class="text-rs">
+                        <h1>{{ $rs->nama }}</h1>
+                        <p>{{ $rs->alamat }}</p>
+                        <a href="{{ $rs->link }}" target="_blank">
+                            <div class="visit">
+                                <p>Kunjungi</p>
+                                <i class='bx bx-right-arrow-alt'></i>
+                            </div>
+                        </a>
+                        
+                    </div>
                 </div>
-            </div>
+            @endforeach
         </div>
-        <div class="card-rs">
-            <img src="image/rs.png" alt="">
-            <div class="text-rs">
-                <h1>Rumah Sakit Kariadi</h1>
-                <p>Jl. DR. Sutomo No.16, Randusari, Kec. Semarang Sel., Kota Semarang, Jawa Tengah 50244</p>
-                <div class="visit">
-                    <p>Kunjungi</p>
-                    <i class='bx bx-right-arrow-alt'></i>
-                </div>
-            </div>
-        </div>
-        <div class="card-rs">
-            <img src="image/rs.png" alt="">
-            <div class="text-rs">
-                <h1>Rumah Sakit Kariadi</h1>
-                <p>Jl. DR. Sutomo No.16, Randusari, Kec. Semarang Sel., Kota Semarang, Jawa Tengah 50244</p>
-                <div class="visit">
-                    <p>Kunjungi</p>
-                    <i class='bx bx-right-arrow-alt'></i>
-                </div>
-            </div>
-        </div>
-        <div class="card-rs">
-            <img src="image/rs.png" alt="">
-            <div class="text-rs">
-                <h1>Rumah Sakit Kariadi</h1>
-                <p>Jl. DR. Sutomo No.16, Randusari, Kec. Semarang Sel., Kota Semarang, Jawa Tengah 50244</p>
-                <div class="visit">
-                    <p>Kunjungi</p>
-                    <i class='bx bx-right-arrow-alt'></i>
-                </div>
-            </div>
-        </div>
-        <div class="card-rs">
-            <img src="image/rs.png" alt="">
-            <div class="text-rs">
-                <h1>Rumah Sakit Kariadi</h1>
-                <p>Jl. DR. Sutomo No.16, Randusari, Kec. Semarang Sel., Kota Semarang, Jawa Tengah 50244</p>
-                <div class="visit">
-                    <p>Kunjungi</p>
-                    <i class='bx bx-right-arrow-alt'></i>
-                </div>
-            </div>
-        </div>
+
+        
     </section>
     <!-- Footer -->
     <footer>
@@ -111,21 +93,41 @@
         <div class="menu">
             <ul>
                 <li class="title-footer">Menu</li>
-                <li>Home</li>
-                <li>Blog</li>
-                <li>Cek Kesehatan</li>
-                <li>Booking Dokter</li>
-                <li>RS Terdekat</li>
+                <a href="/homepage">
+                    <li>Home</li>
+                </a>
+                <a href="/blog">
+                    <li>Blog</li>
+                </a>
+                <a href="/cek-kesehatan">
+                    <li>Cek Kesehatan</li>
+                </a>
+                <a href="/booking-dokter">
+                    <li>Booking Dokter</li>
+                </a>
+                <a href="/rs-terdekat">
+                    <li>RS Terdekat</li>
+                </a>
             </ul>
         </div>
         <div class="artikel">
             <ul>
                 <li class="title-footer">Artikel</li>
-                <li>Kesehatan</li>
-                <li>Obat-Obatan</li>
-                <li>Tips and Tricks</li>
-                <li>Berita</li>
-                <li>Olahraga</li>
+                <a href="{{ route('blog.category', ['category' => 'kesehatan']) }}">
+                    <li>Kesehatan</li>
+                </a>
+                <a href="{{ route('blog.category', ['category' => 'obat-obatan']) }}">
+                    <li>Obat-Obatan</li>
+                </a>
+                <a href="{{ route('blog.category', ['category' => 'tips and tricks']) }}">
+                    <li>Tips and Tricks</li>
+                </a>
+                <a href="{{ route('blog.category', ['category' => 'berita']) }}">
+                    <li>Berita</li>
+                </a>
+                <a href="{{ route('blog.category', ['category' => 'olahraga']) }}">
+                    <li>Olahraga</li>
+                </a>
             </ul>
         </div>
         <div class="kontak">
@@ -137,6 +139,31 @@
         </div>
     </footer>
 </body>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#btnCari').click(function() {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        var latitude = position.coords.latitude;
+                        var longitude = position.coords.longitude;
+
+                        $.ajax({
+                            url: '/rumah-sakit/cari-terdekat',
+                            method: 'POST',
+                            data: {
+                                latitude: latitude,
+                                longitude: longitude,
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(response) {
+                                var hasilCardRS = $(response).find('.card-rs');
+                                $('#hasilPencarian').html(hasilCardRS).slideDown();
+                            }
+                        });
+                    });
+                });
+            });
+        </script>
 <script>
     let menu = document.querySelector('#menu-icon');
     let navbar = document.querySelector('.navbar');
@@ -146,7 +173,6 @@
         navbar.classList.toggle('open');
     }
 
-    // Close the menu when a link is clicked
     document.querySelectorAll('.navbar a').forEach(link => {
         link.onclick = () => {
             menu.classList.remove('bx-x');
@@ -157,7 +183,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const header = document.querySelector('header');
-        const scrollThreshold = 20; // Adjust this value based on when you want the header to become sticky
+        const scrollThreshold = 20;
 
         function updateHeaderSticky() {
             const scrollY = window.scrollY || window.pageYOffset;
@@ -172,9 +198,13 @@
 
         window.addEventListener('scroll', updateHeaderSticky);
 
-        // Initial call to set initial state
         updateHeaderSticky();
     });
+</script>
+<script>
+    function redirectToProfile() {
+        window.location.href = "/profile";
+    }
 </script>
 
 </html>
