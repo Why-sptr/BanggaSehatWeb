@@ -1,2 +1,2 @@
 Link Website
-http://banggasehat.kencang.id/
+https://banggasehat.000webhostapp.com/

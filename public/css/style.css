@@ -234,6 +234,8 @@ button:hover:before {
     padding: 15px 30px;
     border-radius: 30px;
     margin-top: 50px;
+    cursor: pointer;
+    z-index: 999;
 }
 
 /* ============== Homepage ============== */
